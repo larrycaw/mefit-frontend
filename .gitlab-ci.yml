@@ -50,7 +50,6 @@ cache:
     - node_modules/
 
 before_script:
-    - npm install
     - apt-get update -qy
     - apt-get install -y ruby-dev
     - gem install dpl
