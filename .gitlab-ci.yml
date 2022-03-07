@@ -13,31 +13,32 @@
 #
 # For more information, see: https://docs.gitlab.com/ee/ci/yaml/index.html#stages
 
-cache:
-  paths:
-    - node_modules/
+# cache:
+#   paths:
+#     - node_modules/
 
 stages: # List of stages for jobs, and their order of execution
-  - build
   - deploy
 
-build-job:       # This job runs in the build stage, which runs first.
-  stage: build
-  image: node:16.13.0
-  script:
-    - echo "Compiling the code..."
-    - npm install
-    - echo "Compile complete."
+# build-job:       # This job runs in the build stage, which runs first.
+#   stage: build
+#   image: node:16.13.0
+#   script:
+#     - echo "Compiling the code..."
+#     - npm install
+#     - echo "Compile complete."
 
 deploy-production:      # This job runs in the deploy stage.
   stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
   image: node:16.13.0
+  before_script:
+    - npm install
   script:
     - echo "Deploying application..."
-    - git push https://$heroku:$16b2b3b8-41f3-4255-9338-1eb367e0ab88@git.heroku.com/me-fit-noroff HEAD:master
+    - git push https://$HEROKU_USER:$HEROKU_API_KEY@git.heroku.com/me-fit-noroff HEAD:master
     - echo "Application successfully deployed."
   environment:
     name: production
     url: https://me-fit-noroff.herokuapp.com/
   only:
-    - master
+    - main
