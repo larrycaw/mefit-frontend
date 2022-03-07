@@ -17,9 +17,6 @@ which is created in React using Keycloak for user authentication.
 ```zshell
     git clone https://gitlab.com/g5453/frontend.git
 ```
- - Open solution in Visual Studio or another IDE
- - Update to your SQL Server connection info in appsettings.json
-
 
 ## Usage
 
@@ -64,6 +61,3 @@ You don't have to ever use `eject`. The curated feature set is suitable for smal
 Stian Økland [@StianOkland](https://github.com/StianOkland)<br />
 Isak Hauknes [@larrycaw](https://github.com/larrycaw)<br />
 Andrea Hårseth Nakstad [@andreahn](https://github.com/andreahn)
-
-
-
