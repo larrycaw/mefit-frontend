@@ -35,7 +35,7 @@ deploy-production:      # This job runs in the deploy stage.
     - npm install
   script:
     - echo "Deploying application..."
-    - git push https://$HEROKU_USER:$HEROKU_API_KEY@git.heroku.com/me-fit-noroff HEAD:master
+    - git push https://$HEROKU_USER:$HEROKU_API_KEY@git.heroku.com/me-fit-noroff HEAD:main
     - echo "Application successfully deployed."
   environment:
     name: production
