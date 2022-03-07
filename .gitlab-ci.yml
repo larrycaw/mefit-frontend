@@ -34,7 +34,7 @@ deploy-production:      # This job runs in the deploy stage.
   image: node:16.13.0
   script:
     - echo "Deploying application..."
-    - git push https://$HEROKU_USER:$qwipeqwkdjasdnasjldhwqijasdasd213eqx@git.heroku.com/me-fit-noroff HEAD:master
+    - git push https://$HEROKU_USER:$HEROKU_API_KEY@git.heroku.com/me-fit-noroff HEAD:master
     - echo "Application successfully deployed."
   environment:
     name: production
