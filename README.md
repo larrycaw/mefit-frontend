@@ -14,8 +14,8 @@ which is created in React using Keycloak for user authentication.
 ## Install
 
  - Clone to a local directory
-```zshell
-    git clone https://gitlab.com/g5453/frontend.git
+```bash
+git clone https://gitlab.com/g5453/frontend.git
 ```
 
 ## Usage
