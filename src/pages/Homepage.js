@@ -1,5 +1,5 @@
 import { React, useEffect, useState } from 'react';
-
+import { APIURL } from "../API.js";
 
 const Home = () => {
   const [address, setAddress] = useState([])
@@ -7,7 +7,7 @@ const Home = () => {
   const [addresses,setAddresses] = useState([])
 
   const  apiTest = async () => {
-    const response = await fetch('https://localhost:44389/api/Addresses/all')
+    const response = await fetch(`${APIURL}api/Addresses/all`)
     const result = await response.json()
     console.log(result)
     setAddresses(result)

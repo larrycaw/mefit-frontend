@@ -1,5 +1,6 @@
 import { React, useEffect, useState } from 'react';
 import keycloak from '../Keycloak';
+import { APIURL } from "../API.js";
 
 
 const Secured = () => {
@@ -7,7 +8,7 @@ const Secured = () => {
   const [addresses,setAddresses] = useState([])
 
   const  apiTest = async () => {
-    const response = await fetch('https://mefit.azurewebsites.net/api/Addresses/all')
+    const response = await fetch(`${APIURL}api/Addresses/all`)
     const result = await response.json()
     console.log(result)
     setAddresses(result)
