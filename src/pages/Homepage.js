@@ -21,7 +21,7 @@ const Home = () => {
         <button onClick={getAddresses}>Fetch all addresses</button>
       </div>
       <div>
-      <text>{address}</text>
+      <h2>{address}</h2>
       </div>
     </main>
   );
