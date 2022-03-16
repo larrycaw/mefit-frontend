@@ -1,30 +1,28 @@
-import React, { useState } from 'react';
-import { apiFetchAllAddresses } from '../api/AddresseAPI';
+import { React, useEffect, useState } from 'react';
 
 
 const Home = () => {
   const [address, setAddress] = useState([])
 
-  const getAddresses =async () => {
-    apiFetchAllAddresses()
-      .then(response => console.log(response))
-      // .then(data => {
-      //   setAddress(data[0])
-    }
+  const [addresses,setAddresses] = useState([])
 
-  return (
-    <main>
-      <div>
-        <h1 className="text-green-800 text-4xl">Welcome to the Homepage</h1>
-      </div>
-        <div>
-        <button onClick={getAddresses}>Fetch all addresses</button>
-      </div>
-      <div>
-      <h2>{address}</h2>
-      </div>
-    </main>
-  );
+  const  apiTest = async () => {
+    const response = await fetch('https://localhost:44389/api/Addresses/all')
+    const result = await response.json()
+    console.log(result)
+    setAddresses(result)
+
+  }
+
+  useEffect( () => {
+    apiTest()
+
+},[])
+ return (
+   <div>
+     <h1 className="text-green-800 text-4xl">Welcome to the Homepage</h1>
+   </div>
+ );
 };
 
 export default Home;
