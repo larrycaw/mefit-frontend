@@ -4,7 +4,7 @@ import { APIURL } from "../API"
 export async function apiFetchAllWorkouts() {
 
     try {
-        const response = await fetch(`${APIURL}/Workouts/all`)
+        const response = await fetch(`${APIURL}api/Workouts/all`)
         const data = await response.json()
 
         return [null, data]
@@ -22,7 +22,7 @@ export async function apiGetExercisesByWorkoutId(id) {
     }
 
     try {
-        const response = await fetch(`${APIURL}/Workouts/exercises`, requestOptions)
+        const response = await fetch(`${APIURL}api/Workouts/exercises`, requestOptions)
         const data = await response.json()
         
         return [null, data]

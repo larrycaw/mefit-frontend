@@ -1,8 +1,8 @@
 import { React, useEffect, useRef, useState } from 'react';
-import keycloak from '../Keycloak';
-import { APIURL } from "../API.js";
-import { apiFetchAllSets, apiGetSetById } from '../api/SetAPI';
-import { apiGetExercisesById, apiFetchAllExercises } from '../api/ExerciseAPI';
+import keycloak from '../../Keycloak';
+import { APIURL } from "../../API.js";
+import { apiFetchAllSets, apiGetSetById } from '../../api/SetAPI';
+import { apiGetExercisesById, apiFetchAllExercises } from '../../api/ExerciseAPI';
 
 
 const ExercisePage = () => {

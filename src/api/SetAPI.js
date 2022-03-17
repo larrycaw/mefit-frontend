@@ -4,7 +4,7 @@ import { APIURL } from "../API"
 export async function apiFetchAllSets() {
 
     try {
-        const response = await fetch(`${APIURL}/Set/all`)
+        const response = await fetch(`${APIURL}api/Set/all`)
         const data = await response.json()
 
         return [null, data]
@@ -22,7 +22,7 @@ export async function apiGetSetById(id) {
     }
 
     try {
-        const response = await fetch(`${APIURL}/Set`, requestOptions)
+        const response = await fetch(`${APIURL}api/Set`, requestOptions)
         const data = await response.json()
 
         return [null, data]

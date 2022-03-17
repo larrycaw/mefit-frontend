@@ -4,7 +4,7 @@ import { APIURL } from "../API"
 export async function apiFetchAllExercises() {
 
     try {
-        const response = await fetch(`${APIURL}/Exercises/all`)
+        const response = await fetch(`${APIURL}api/Exercises/all`)
         const data = await response.json()
 
         return [null, data]

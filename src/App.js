@@ -5,8 +5,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Nav from "./components/Nav";
 import WelcomePage from "./pages/Homepage";
 import SecuredPage from "./pages/Securedpage";
-import WorkoutPage from "./pages/Workoutpage";
-import ExercisePage from "./pages/Exercisepage"
+import WorkoutPage from "./components/Workouts/Workoutpage";
+import ExercisePage from "./components/Exercises/Exercisepage"
 import PrivateRoute from "./helpers/PrivateRoute";
 import ProgramPage from "./components/Programs/ProgramPage";
 
@@ -42,7 +42,7 @@ function App() {
                </PrivateRoute>
              }
            />
-           <Route exact path="/programs" element={<ProgramPage/>}/>
+           <Route exact path="/programs" element={<PrivateRoute> <ProgramPage/> </PrivateRoute> }/>
          </Routes>
        </BrowserRouter>
      </ReactKeycloakProvider>
