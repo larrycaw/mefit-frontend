@@ -8,6 +8,7 @@ import SecuredPage from "./pages/Securedpage";
 import WorkoutPage from "./pages/Workoutpage";
 import ExercisePage from "./pages/Exercisepage"
 import PrivateRoute from "./helpers/PrivateRoute";
+import ProgramPage from "./components/Programs/ProgramPage";
 
 function App() {
  return (
@@ -41,6 +42,7 @@ function App() {
                </PrivateRoute>
              }
            />
+           <Route exact path="/programs" element={<ProgramPage/>}/>
          </Routes>
        </BrowserRouter>
      </ReactKeycloakProvider>
