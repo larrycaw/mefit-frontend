@@ -5,6 +5,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Nav from "./components/Nav";
 import WelcomePage from "./pages/Homepage";
 import SecuredPage from "./pages/Securedpage";
+import WorkoutPage from "./pages/Workoutpage";
+import ExercisePage from "./pages/Exercisepage"
 import PrivateRoute from "./helpers/PrivateRoute";
 
 function App() {
@@ -20,6 +22,22 @@ function App() {
              element={
                <PrivateRoute>
                  <SecuredPage />
+               </PrivateRoute>
+             }
+           />
+          <Route
+             path="/workouts"
+             element={
+               <PrivateRoute>
+                 <WorkoutPage />
+               </PrivateRoute>
+             }
+           />
+          <Route
+             path="/exercises"
+             element={
+               <PrivateRoute>
+                 <ExercisePage />
                </PrivateRoute>
              }
            />
