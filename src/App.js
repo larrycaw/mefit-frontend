@@ -6,6 +6,7 @@ import Nav from "./components/Nav";
 import WelcomePage from "./pages/Homepage";
 import SecuredPage from "./pages/Securedpage";
 import PrivateRoute from "./helpers/PrivateRoute";
+import ProgramPage from "./components/Programs/ProgramPage";
 
 function App() {
  return (
@@ -23,6 +24,7 @@ function App() {
                </PrivateRoute>
              }
            />
+           <Route exact path="/programs" element={<ProgramPage/>}/>
          </Routes>
        </BrowserRouter>
      </ReactKeycloakProvider>
