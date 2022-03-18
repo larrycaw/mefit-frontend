@@ -1,6 +1,6 @@
 import { React, useEffect, useRef, useState } from 'react';
 import keycloak from '../../Keycloak';
-import { APIURL } from "../../API.js";
+import { API_URL } from "../../API.js";
 import { apiFetchAllWorkouts, apiGetExercisesByWorkoutId } from '../../api/WorkoutAPI';
 import { apiFetchAllSets, apiGetSetById } from '../../api/SetAPI';
 import { apiGetExercisesById } from '../../api/ExerciseAPI';

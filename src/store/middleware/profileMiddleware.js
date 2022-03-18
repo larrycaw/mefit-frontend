@@ -1,4 +1,4 @@
-import { APIURL } from "../../API";
+import { API_URL } from "../../API";
 import {
   ACTION_PROFILE_CREATE,
   ACTION_PROFILE_FETCH,
@@ -40,7 +40,7 @@ export const profileMiddleware =
         }),
       };
 
-      fetch(`${APIURL}api/Profile`, requestOptions)
+      fetch(`${API_URL}api/Profile`, requestOptions)
         .then((response) => {
           console.log(response);
           response.json();
@@ -62,7 +62,7 @@ export const profileMiddleware =
         },
       };
 
-      fetch(`${APIURL}api/Profile`, requestOptions)
+      fetch(`${API_URL}api/Profile`, requestOptions)
         .then((response) => response.json())
         .then((result) => {
           if (result.status === 404) {
@@ -95,7 +95,7 @@ export const profileMiddleware =
         }),
       };
 
-      fetch(`${APIURL}api/Profile`, requestOptions)
+      fetch(`${API_URL}api/Profile`, requestOptions)
         .then((response) => {
           if (response.status === 404) {
             console.error("Update failed. Something is missing in database.");
