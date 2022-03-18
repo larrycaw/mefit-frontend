@@ -1,4 +1,4 @@
-const apiURL = "https://mefit.azurewebsites.net/api"
+const API_URL = "https://mefit.azurewebsites.net/api"
 
 export async function apiFetchAllAddresses() {
 
@@ -14,7 +14,7 @@ export async function apiFetchAllAddresses() {
         headers: headers,
     }
     try {
-        const response = await fetch(`https://localhost:44389/api/Addresses/all`, requestOption)
+        const response = await fetch(`${API_URL}api/Addresses/all`, requestOption)
         const data = await response.json()
 
         return [null, data]

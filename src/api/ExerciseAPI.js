@@ -1,10 +1,10 @@
 // const apiURL = "https://mefit.azurewebsites.net/api"
-import { APIURL } from "../API"
+import { API_URL } from "../API"
 
 export async function apiFetchAllExercises() {
 
     try {
-        const response = await fetch(`${APIURL}api/Exercises/all`)
+        const response = await fetch(`${API_URL}api/Exercises/all`)
         const data = await response.json()
 
         return [null, data]
