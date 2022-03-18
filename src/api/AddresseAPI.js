@@ -1,4 +1,4 @@
-const API_URL = "https://mefit.azurewebsites.net/api"
+import { API_URL } from "../API"
 
 export async function apiFetchAllAddresses() {
 
