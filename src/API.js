@@ -1,1 +1,1 @@
-export const APIURL = "https://mefit.azurewebsites.net/";
+export const API_URL = "https://mefit.azurewebsites.net/";

@@ -1,5 +1,5 @@
 import { React, useEffect, useState } from "react";
-import { APIURL } from "../../API";
+import { API_URL } from "../../API";
 import ProgramList from "./ProgramList";
 import SelectedProgram from "./SelectedProgram";
 
@@ -10,7 +10,7 @@ const ProgramPage = () => {
 
   useEffect(() => {
 
-    fetch(`${APIURL}api/MFProgram/all`, {
+    fetch(`${API_URL}api/MFProgram/all`, {
       headers: { "Content-Type": "application/json" },
     })
       .then((response) => response.json())
