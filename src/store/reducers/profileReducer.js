@@ -1,4 +1,4 @@
-import { ACTION_PROFILE_SET } from "../actions/profileActions";
+import { ACTION_PROFILE_RESET, ACTION_PROFILE_SET } from "../actions/profileActions";
 
 const initialState = {
   weight: 0,
@@ -40,7 +40,13 @@ export const profileReducer = (state = { ...initialState }, action) => {
       if (action.payload.programId){
         newState.programId = action.payload.programId
       }
-      return newState
+      return newState;
+
+    case ACTION_PROFILE_RESET:
+      console.log("resetting to")
+      console.log(initialState)
+      return initialState;
+
       // return {
       //   weight: action.payload.weight,
       //   height: action.payload.height,
