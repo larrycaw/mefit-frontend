@@ -11,39 +11,39 @@ const Home = () => {
   const dispatch = useDispatch();
 
   // for testing purposes only. ID should be fetched from keycloak instead.
-  const currentUserId = "keycloak-uidd";
+  // const currentUserId = "keycloak-uidd";
 
   // Fetches/creates profile for user.
-  const checkCurrentUser = (userId) => {
-    dispatch(profileFetchAction(userId));
-  };
+  // const checkCurrentUser = (userId) => {
+  //   dispatch(profileFetchAction(userId));
+  // };
 
   // test function for updating profile in database
-  const updateUserInDB = () => {
-    let newData = {
-      id: currentUserId,
-      weight: 60,
-      height: 171,
-      medicalConditions: "Anxiety",
-      disabilities: "kakklxamkm",
-      addressId: 1,
-      programId: 2,
-      workoutId: 1,
-      setId: 1,
-    };
+  // const updateUserInDB = () => {
+  //   let newData = {
+  //     id: currentUserId,
+  //     weight: 60,
+  //     height: 171,
+  //     medicalConditions: "Anxiety",
+  //     disabilities: "kakklxamkm",
+  //     addressId: 1,
+  //     programId: 2,
+  //     workoutId: 1,
+  //     setId: 1,
+  //   };
 
-    dispatch(profileUpdateAction(newData));
-  };
+  //   dispatch(profileUpdateAction(newData));
+  // };
 
-  useEffect(() => {
-    // Check current user's profile on mount
-    checkCurrentUser(currentUserId);
-  }, []);
+  // useEffect(() => {
+  //   // Check current user's profile on mount
+  //   checkCurrentUser(currentUserId);
+  // }, []);
 
   return (
     <div>
       <h1 className="text-green-800 text-4xl">Welcome to the Homepage</h1>
-      <button onClick={updateUserInDB}>update user in db</button>
+      {/* <button onClick={updateUserInDB}>update user in db</button> */}
       <h4>current user disabilities is {user ? user.disabilities : ""}</h4>
     </div>
   );

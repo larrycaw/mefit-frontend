@@ -2,6 +2,7 @@ export const ACTION_PROFILE_FETCH = "[profile] fetch";
 export const ACTION_PROFILE_CREATE = "[profile] create";
 export const ACTION_PROFILE_SET = "[profile] set";
 export const ACTION_PROFILE_UPDATE = "[profile] update";
+export const ACTION_PROFILE_RESET = "[profile] reset";
 
 export const profileFetchAction = (userId) => ({
   type: ACTION_PROFILE_FETCH,
@@ -23,4 +24,8 @@ export const profileSetAction = (newProfile) => ({
 export const profileUpdateAction = (newProfile) => ({
   type: ACTION_PROFILE_UPDATE,
   payload: newProfile,
+});
+
+export const profileResetAction = () => ({
+  type: ACTION_PROFILE_RESET
 });

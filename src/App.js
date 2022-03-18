@@ -9,7 +9,11 @@ import WorkoutPage from "./components/Workouts/Workoutpage";
 import ExercisePage from "./components/Exercises/Exercisepage"
 import PrivateRoute from "./helpers/PrivateRoute";
 import ProgramPage from "./components/Programs/ProgramPage";
+<<<<<<< HEAD
 import ContributorWorkoutPage from "./components/Contributors/ContributorWorkout"
+=======
+import UpdateProfilePage from "./components/UpdateProfile/UpdateProfilePage";
+>>>>>>> 0a0ee5c2fe0ae9fd101a4d1ba8239f2b164be2d7
 
 function App() {
  return (
@@ -50,8 +54,17 @@ function App() {
                <PrivateRoute>
                  <ContributorWorkoutPage />
                </PrivateRoute>
+              }
+             />
+             <Route
+             path="/update-profile"
+             element={
+               <PrivateRoute>
+                 <UpdateProfilePage />
+               </PrivateRoute>
              }
-           />
+            />
+
          </Routes>
        </BrowserRouter>
      </ReactKeycloakProvider>
