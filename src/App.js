@@ -9,6 +9,7 @@ import WorkoutPage from "./components/Workouts/Workoutpage";
 import ExercisePage from "./components/Exercises/Exercisepage"
 import PrivateRoute from "./helpers/PrivateRoute";
 import ProgramPage from "./components/Programs/ProgramPage";
+import UpdateProfilePage from "./components/UpdateProfile/UpdateProfilePage";
 
 function App() {
  return (
@@ -43,6 +44,14 @@ function App() {
              }
            />
            <Route exact path="/programs" element={<PrivateRoute> <ProgramPage/> </PrivateRoute> }/>
+           <Route
+             path="/update-profile"
+             element={
+               <PrivateRoute>
+                 <UpdateProfilePage />
+               </PrivateRoute>
+             }
+           />
          </Routes>
        </BrowserRouter>
      </ReactKeycloakProvider>

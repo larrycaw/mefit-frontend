@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useKeycloak } from "@react-keycloak/web";
+import { profileFetchAction, profileResetAction } from "../store/actions/profileActions";
+import { useDispatch } from "react-redux";
 
 const Nav = () => {
  const { keycloak, initialized } = useKeycloak();
+ const dispatch = useDispatch();
+
+ useEffect(() => {
+    if (!keycloak.idTokenParsed)
+      dispatch(profileResetAction());
+    else
+      dispatch(profileFetchAction(keycloak.idTokenParsed.sub));
+ }, [keycloak.idTokenParsed]);
+
 
  return (
    <div>
@@ -37,6 +48,11 @@ const Nav = () => {
                <li>
                  <a className="hover:text-blue-800" href="/programs">
                    Program Page
+                 </a>
+               </li>
+               <li>
+                 <a className="hover:text-blue-800" href="/update-profile">
+                   Update Profile Page
                  </a>
                </li>
              </ul>
