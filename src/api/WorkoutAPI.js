@@ -1,10 +1,9 @@
-// const apiURL = "https://mefit.azurewebsites.net/api"
-import { APIURL } from "../API"
+import { API_URL } from "../API"
 
 export async function apiFetchAllWorkouts() {
 
     try {
-        const response = await fetch(`${APIURL}api/Workouts/all`)
+        const response = await fetch(`${API_URL}api/Workouts/all`)
         const data = await response.json()
 
         return [null, data]
@@ -22,7 +21,7 @@ export async function apiGetExercisesByWorkoutId(id) {
     }
 
     try {
-        const response = await fetch(`${APIURL}api/Workouts/exercises`, requestOptions)
+        const response = await fetch(`${API_URL}api/Workouts/exercises`, requestOptions)
         const data = await response.json()
         
         return [null, data]
