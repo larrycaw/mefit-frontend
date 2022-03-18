@@ -13,3 +13,11 @@ export async function apiFetchAllExercises() {
         return[e.message, []]
     }
 }
+
+export async function apiUpdateExercise(exercise) {
+
+}
+
+export async function apiCreateExercise(exercise) {
+
+}
