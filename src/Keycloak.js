@@ -1,8 +1,8 @@
 import Keycloak from "keycloak-js";
 const keycloak = new Keycloak({
- url: "https://kc-an-so-ih.herokuapp.com/auth",
- realm: "test",
- clientId: "heroku",
+ url: "http://localhost:8080/auth/",
+ realm: "testing",
+ clientId: "test",
 });
 
 export default keycloak;

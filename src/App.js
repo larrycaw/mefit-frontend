@@ -5,7 +5,10 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Nav from "./components/Nav";
 import WelcomePage from "./pages/Homepage";
 import SecuredPage from "./pages/Securedpage";
+import WorkoutPage from "./components/Workouts/Workoutpage";
+import ExercisePage from "./components/Exercises/Exercisepage"
 import PrivateRoute from "./helpers/PrivateRoute";
+import ProgramPage from "./components/Programs/ProgramPage";
 
 function App() {
  return (
@@ -23,6 +26,23 @@ function App() {
                </PrivateRoute>
              }
            />
+          <Route
+             path="/workouts"
+             element={
+               <PrivateRoute>
+                 <WorkoutPage />
+               </PrivateRoute>
+             }
+           />
+          <Route
+             path="/exercises"
+             element={
+               <PrivateRoute>
+                 <ExercisePage />
+               </PrivateRoute>
+             }
+           />
+           <Route exact path="/programs" element={<PrivateRoute> <ProgramPage/> </PrivateRoute> }/>
          </Routes>
        </BrowserRouter>
      </ReactKeycloakProvider>
