@@ -10,6 +10,7 @@ import ExercisePage from "./components/Exercises/Exercisepage"
 import PrivateRoute from "./helpers/PrivateRoute";
 import ProgramPage from "./components/Programs/ProgramPage";
 import UpdateProfilePage from "./components/UpdateProfile/UpdateProfilePage";
+import ContributeExercisesPage from "./components/ContributeExercises/ContributeExercisesPage";
 
 function App() {
  return (
@@ -49,6 +50,14 @@ function App() {
              element={
                <PrivateRoute>
                  <UpdateProfilePage />
+               </PrivateRoute>
+             }
+           />
+           <Route
+             path="/contribute/exercises"
+             element={
+               <PrivateRoute>
+                 <ContributeExercisesPage />
                </PrivateRoute>
              }
            />
