@@ -17,17 +17,21 @@ const ContributeExercisesPage = () => {
         getAllExercises();
     },[])
 
+    const onSelect = (e) => {
+        let exerciseId = parseInt(e.target.value)
+        selectExercise(exercises.find((e) => e.id === exerciseId))
+    }
+
     return <>
     contribute!
     <h1>Create new exercise:</h1>
-    <ExerciseForm/>
+    <ExerciseForm getNewExercises={getAllExercises}/>
     <h1>Update existing exercise</h1>
-    {selectedExercise.name}
-    <select onChange={(e) => selectExercise(e.target.value)}>
-    <option key="default" value="" disabled selected>Select exercise</option>
-        {exercises.map((exercise) => {return (<option key={exercise.id} value={exercise}>{exercise.name}</option>);})}
+    <select onChange={onSelect} defaultValue="">
+    <option key="default" value="" disabled>Select exercise</option>
+        {exercises.map((exercise) => {return (<option key={exercise.id} value={exercise.id}>{exercise.name}</option>);})}
     </select>
-    <ExerciseForm exercise={selectedExercise}/>
+    {selectedExercise.id? <ExerciseForm exercise={selectedExercise}  getNewExercises={getAllExercises}/> : <></>}
     </>
 };
 
