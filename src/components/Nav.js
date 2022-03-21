@@ -55,9 +55,14 @@ const Nav = () => {
                    Workout Contributor Page
                  </a>
                  </li>
-                 <li>
+                <li>
                  <a className="hover:text-blue-800" href="/update-profile">
                    Update Profile Page
+                 </a>
+               </li>
+               <li>
+                 <a className="hover:text-blue-800" href="/programcontributor">
+                   Program Contributor Page
                  </a>
                </li>
              </ul>

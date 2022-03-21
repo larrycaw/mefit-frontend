@@ -1,7 +1,7 @@
 import { React, useEffect, useRef, useState } from 'react';
 import keycloak from '../../Keycloak';
 import { APIURL } from "../../API.js";
-import { apiCreateWorkout, apiFetchAllWorkouts, apiUpdateWorkout } from '../../api/WorkoutAPI';
+import { apiAssignSetByExercise, apiCreateWorkout, apiFetchAllWorkouts, apiUpdateWorkout } from '../../api/WorkoutAPI';
 import { apiGetExercisesById, apiFetchAllExercises } from '../../api/ExerciseAPI';
 
 
@@ -64,21 +64,26 @@ const ContributorWorkoutPage = () => {
     }
 
     const handleChecked = (event) => {
-        console.log(event.target.value)
+
+        var updateList = [...checked]
+        const exists = updateList.some(v => (v == event.target.value))
+        if(exists == false) {
+            updateList.push(parseInt(event.target.value))
+            setChecked(updateList);
+        }
+        else {
+            setChecked(v => v.filter((item) => item != event.target.value))
+        }
     }
     const handleCheck = (event) => {
-
-        console.log(exercises)
-        var updatedList = [...checked];
-        if (event.target.checked) {
-            // updatedList = [...checked, event.target.value];
-            updatedList.push(event.target.value)
-        } else {
-            updatedList.splice(checked.indexOf(event.target.value), 1);
+        if(chosenWorkout.id == null) {
+            alert("Select a workout")
         }
-        console.log()
-        setChecked(updatedList);
+        else {
+            apiAssignSetByExercise(chosenWorkout.id, checked)
+        }
         event.preventDefault()
+
     };
 
     const listInfo = (workout) => {
@@ -129,7 +134,7 @@ const ContributorWorkoutPage = () => {
                 <form onSubmit={handleCheck}>
                     {exercises.map((exercise, i) => (
                         <div key={i}>
-                            <input type="checkbox" value={exercise.name} onChange={handleChecked}/>
+                            <input type="checkbox" value={exercise.id} onChange={handleChecked}/>
                             <span>{exercise.name}</span>
                         </div>
                     ))}

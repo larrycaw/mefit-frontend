@@ -80,3 +80,27 @@ export async function apiUpdateWorkout(id, workoutName, workoutType, workoutComp
         return [e.message, []]
     }
 }
+
+export async function apiAssignSetByExercise(id, exerciseIDs) {
+
+    const requestOptions = {
+        method: 'PUT',
+        headers: {
+            'id': id,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(exerciseIDs)
+     
+    }
+    console.log(requestOptions.body)
+
+    try {
+        const response = await fetch(`${API_URL}api/Workouts/assignSetsByExercise`, requestOptions)
+        const data = await response.json()
+        
+        return [null, data]
+    }
+    catch (e){
+        return [e.message, []]
+    }
+}
