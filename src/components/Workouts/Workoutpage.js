@@ -4,6 +4,7 @@ import { API_URL } from "../../API.js";
 import { apiFetchAllWorkouts, apiGetExercisesByWorkoutId } from '../../api/WorkoutAPI';
 import { apiFetchAllSets, apiGetSetById } from '../../api/SetAPI';
 import { apiGetExercisesById } from '../../api/ExerciseAPI';
+import AppContainer from "../../helpers/AppContainer";
 
 
 const Workout = () => {
@@ -46,15 +47,14 @@ const Workout = () => {
     }
 
     return (
-        <div>
+        <AppContainer>
             <h1 className="text-black text-4xl">Welcome to the Workout Page.</h1>
             <h2>All registered workouts:</h2>
             {workouts.map((workout, i) => <button key={i} onClick={() => listInfo(workout)}>{workout.name}</button>)}
             <div>
                 {info}
             </div>
-            
-        </div>
+        </AppContainer>
     );
 };
 

@@ -1,4 +1,5 @@
 import { React } from "react";
+import AppContainer from "../../helpers/AppContainer";
 
 const ProgramList = (props) => {
 
@@ -12,10 +13,11 @@ const ProgramList = (props) => {
         )
     })
 
-  return <div>
-      <h1>All programs:</h1>
-      {props.programs.length > 0 ? programList : <span>No programs</span>}
-      </div>;
-};
+  return (
+        <AppContainer>
+            <h1>All programs:</h1>
+            {props.programs.length > 0 ? programList : <span>No programs</span>}
+        </AppContainer>
+      )};
 
 export default ProgramList;
