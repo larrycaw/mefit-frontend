@@ -10,8 +10,10 @@ const Nav = () => {
  useEffect(() => {
     if (!keycloak.idTokenParsed)
       dispatch(profileResetAction());
-    else
+    else{
       dispatch(profileFetchAction(keycloak.idTokenParsed.sub));
+      console.log(keycloak.tokenParsed)
+    }
  }, [keycloak.idTokenParsed]);
 
 
@@ -51,8 +53,18 @@ const Nav = () => {
                  </a>
                </li>
                <li>
+                 <a className="hover:text-blue-800" href="/workoutcontributor">
+                   Workout Contributor Page
+                 </a>
+                 </li>
+                <li>
                  <a className="hover:text-blue-800" href="/update-profile">
                    Update Profile Page
+                 </a>
+               </li>
+               <li>
+                 <a className="hover:text-blue-800" href="/programcontributor">
+                   Program Contributor Page
                  </a>
                </li>
                <li>

@@ -5,8 +5,8 @@ import SelectedProgram from "./SelectedProgram";
 
 const ProgramPage = () => {
 
-    let [programs, setPrograms] = useState([]);
-    let [selectedProgram, setSelectedProgram] = useState({});
+  let [programs, setPrograms] = useState([]);
+  let [selectedProgram, setSelectedProgram] = useState({});
 
     const getPrograms = async () => {
       await apiFetchAllPrograms()
