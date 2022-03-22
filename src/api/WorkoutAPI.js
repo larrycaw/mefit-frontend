@@ -92,10 +92,33 @@ export async function apiAssignSetByExercise(id, exerciseIDs) {
         body: JSON.stringify(exerciseIDs)
      
     }
-    console.log(requestOptions.body)
 
     try {
         const response = await fetch(`${API_URL}api/Workouts/assignSetsByExercise`, requestOptions)
+        const data = await response.json()
+        
+        return [null, data]
+    }
+    catch (e){
+        return [e.message, []]
+    }
+}
+
+export async function apiAssignSetToWorkout(id, setIds) {
+
+    const requestOptions = {
+        method: 'PUT',
+        headers: {
+            'id': id,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(setIds)
+    }
+    // console.log(id, setIds)
+    console.log(requestOptions.body)
+
+    try {
+        const response = await fetch(`${API_URL}api/Workouts/assignSets`, requestOptions)
         const data = await response.json()
         
         return [null, data]

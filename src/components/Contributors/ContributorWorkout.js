@@ -1,8 +1,9 @@
 import { React, useEffect, useRef, useState } from 'react';
 import keycloak from '../../Keycloak';
 import { APIURL } from "../../API.js";
-import { apiAssignSetByExercise, apiCreateWorkout, apiFetchAllWorkouts, apiUpdateWorkout } from '../../api/WorkoutAPI';
+import { apiAssignSetByExercise, apiCreateWorkout, apiFetchAllWorkouts, apiUpdateWorkout, apiAssignSetToWorkout } from '../../api/WorkoutAPI';
 import { apiGetExercisesById, apiFetchAllExercises } from '../../api/ExerciseAPI';
+import { apiCreateSet } from '../../api/SetAPI'
 
 
 const ContributorWorkoutPage = () => {
@@ -15,7 +16,10 @@ const ContributorWorkoutPage = () => {
     const [chosenWorkoutType, setChosenWorkoutType] = useState("")
     const [chosenWorkoutCompleted, setChosenWorkoutCompleted] = useState(false)
     const [checked, setChecked] = useState([])
+    const [newSets, setNewSets] = useState([])
+    const [createdSets, setCreatedSets] = useState([])
 
+    let newSetList = []
 
     const getAllWorkouts = async () => {
         await apiFetchAllWorkouts()
@@ -54,7 +58,7 @@ const ContributorWorkoutPage = () => {
     const handleSubmit = (event) => {
         apiCreateWorkout(workoutName, workoutType)
         alert("A new workout is created")
-        event.preventDefault()
+        // event.preventDefault()
     }
 
     const handleEdit = (event) => {
@@ -75,19 +79,71 @@ const ContributorWorkoutPage = () => {
             setChecked(v => v.filter((item) => item != event.target.value))
         }
     }
+
+    const handleCreateSet = async (key, value) => {
+        let updateCreatedSets = [...createdSets]
+        await apiCreateSet(key, value)
+            .then(response => response[1])
+            .then(data => {
+                // console.log(data.id)
+                // updateCreatedSets.push(data.id)
+                newSetList.push(data.id)
+                setCreatedSets(newSetList)
+            })
+            // .then(data => setCreatedSets(updateCreatedSets))
+    }
+
     const handleCheck = (event) => {
         if(chosenWorkout.id == null) {
             alert("Select a workout")
         }
         else {
-            apiAssignSetByExercise(chosenWorkout.id, checked)
+            newSets.forEach(element => {
+                checked.forEach(check => {
+                    if(check == element.key) {
+                        handleCreateSet(element.key, element.value)
+                        // apiCreateSet(element.key, element.value)
+
+                    }
+                });
+            });
+            console.log(createdSets)  
+            // console.log(newSetList)
+            // setCreatedSets(newSetList)
+            
+        
+            apiAssignSetToWorkout(chosenWorkout.id, createdSets)
         }
         event.preventDefault()
-
     };
 
     const listInfo = (workout) => {
         setChosenWorkout(workout)
+    }
+
+    const handleRepetitions = (event, exercise) => {
+        // console.log(event.target.value)
+        // console.log(exercise.name)
+
+        var updateNewSets = [...newSets]
+        const exists = updateNewSets.some(v => (v.key == exercise.id))
+
+        if(exists == false) {
+            var newSet = {"key": exercise.id, "value": event.target.value}
+            updateNewSets.push(newSet)
+            setNewSets(updateNewSets)
+        }
+        else {
+            updateNewSets.forEach(element => {
+                if(element.key == exercise.id) {
+                    element.value = event.target.value
+                }
+            });
+        }
+
+        // console.log(newSets)
+        event.preventDefault()
+
     }
 
     return (
@@ -129,18 +185,22 @@ const ContributorWorkoutPage = () => {
                 </form>
             </div>
             <div>
-                <h4>Add exercise to selected workout</h4>
-
+                <h4>Add exercise to selected workout with number of repetitions</h4>
                 <form onSubmit={handleCheck}>
                     {exercises.map((exercise, i) => (
                         <div key={i}>
                             <input type="checkbox" value={exercise.id} onChange={handleChecked}/>
                             <span>{exercise.name}</span>
+                            <div>
+                                Number of repetitions
+                                <input type="number" min={1} onClick={(e) => handleRepetitions(e, exercise)}/>
+                            </div>
                         </div>
                     ))}
                     <input type="submit" value="Submit" />
                 </form>
                 {checked}
+                {createdSets}
             </div>
         </div>
     );

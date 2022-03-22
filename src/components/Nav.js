@@ -10,8 +10,10 @@ const Nav = () => {
  useEffect(() => {
     if (!keycloak.idTokenParsed)
       dispatch(profileResetAction());
-    else
+    else{
       dispatch(profileFetchAction(keycloak.idTokenParsed.sub));
+      console.log(keycloak.tokenParsed)
+    }
  }, [keycloak.idTokenParsed]);
 
 
