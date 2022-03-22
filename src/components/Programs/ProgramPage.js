@@ -2,7 +2,6 @@ import { React, useEffect, useState } from "react";
 import { apiFetchAllPrograms } from "../../api/ProgramAPI";
 import ProgramList from "./ProgramList";
 import SelectedProgram from "./SelectedProgram";
-import { apiFetchAllPrograms } from "../../api/ProgramAPI";
 
 const ProgramPage = () => {
 
