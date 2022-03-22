@@ -12,6 +12,8 @@ import ProgramPage from "./components/Programs/ProgramPage";
 import ContributorWorkoutPage from "./components/Contributors/ContributorWorkout"
 import UpdateProfilePage from "./components/UpdateProfile/UpdateProfilePage";
 import ContributorProgramPage from "./components/Contributors/ContributorProgram";
+import ContributeExercisesPage from "./components/ContributeExercises/ContributeExercisesPage";
+import SetGoalPage from "./components/SetGoal/SetGoalPage";
 
 function App() {
  return (
@@ -70,6 +72,22 @@ function App() {
                </PrivateRoute>
              }
             />
+           <Route
+             path="/contribute/exercises"
+             element={
+               <PrivateRoute>
+                 <ContributeExercisesPage />
+               </PrivateRoute>
+             }
+           />
+           <Route
+             path="/set-goal"
+             element={
+               <PrivateRoute>
+                 <SetGoalPage />
+               </PrivateRoute>
+             }
+           />
          </Routes>
        </BrowserRouter>
      </ReactKeycloakProvider>

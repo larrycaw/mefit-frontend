@@ -43,20 +43,7 @@ export const profileReducer = (state = { ...initialState }, action) => {
       return newState;
 
     case ACTION_PROFILE_RESET:
-      console.log("resetting to")
-      console.log(initialState)
       return initialState;
-
-      // return {
-      //   weight: action.payload.weight,
-      //   height: action.payload.height,
-      //   disabilities: action.payload.disabilities,
-      //   medicalConditions: action.payload.medicalConditions,
-      //   workoutId: action.payload.workoutId,
-      //   setId: action.payload.setId,
-      //   addressId: action.payload.addressId,
-      //   programId: action.payload.programId,
-      // };
     default:
       return state;
   }

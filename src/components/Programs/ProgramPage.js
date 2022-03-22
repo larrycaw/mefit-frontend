@@ -1,5 +1,5 @@
 import { React, useEffect, useState } from "react";
-import { API_URL } from "../../API";
+import { apiFetchAllPrograms } from "../../api/ProgramAPI";
 import ProgramList from "./ProgramList";
 import SelectedProgram from "./SelectedProgram";
 import { apiFetchAllPrograms } from "../../api/ProgramAPI";
@@ -9,15 +9,16 @@ const ProgramPage = () => {
   let [programs, setPrograms] = useState([]);
   let [selectedProgram, setSelectedProgram] = useState({});
 
-  const getAllPrograms = async () => {
-    await apiFetchAllPrograms()
-      .then(response => response[1])
-      .then(data => setPrograms(data))
-
-  }
+    const getPrograms = async () => {
+      await apiFetchAllPrograms()
+      .then (result => result[1])
+      .then((data) => {
+        setPrograms(data);
+      })
+    }
 
   useEffect(() => {
-    getAllPrograms()
+      getPrograms();
   }, []);
 
   const handleProgramSelect = (programId) => {
