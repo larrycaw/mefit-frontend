@@ -49,7 +49,7 @@ export const profileMiddleware =
         })
         .then((result) =>
           // Update state with newly created profile
-          dispatch(profileSetAction(keycloak.idTokenParsed.sub))
+          dispatch(profileFetchAction(keycloak.idTokenParsed.sub))
         )
         .catch((e) => {
           console.error(e);
