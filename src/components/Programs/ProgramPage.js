@@ -1,5 +1,5 @@
 import { React, useEffect, useState } from "react";
-import { API_URL } from "../../API";
+import { apiFetchAllPrograms } from "../../api/ProgramAPI";
 import ProgramList from "./ProgramList";
 import SelectedProgram from "./SelectedProgram";
 
@@ -8,20 +8,16 @@ const ProgramPage = () => {
     let [programs, setPrograms] = useState([]);
     let [selectedProgram, setSelectedProgram] = useState({});
 
-  useEffect(() => {
-
-    fetch(`${API_URL}api/MFProgram/all`, {
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        setPrograms(result);
-        console.log(result)
+    const getPrograms = async () => {
+      await apiFetchAllPrograms()
+      .then (result => result[1])
+      .then((data) => {
+        setPrograms(data);
       })
-      .catch((e) => {
-        console.log(e);
-      });
+    }
 
+  useEffect(() => {
+      getPrograms();
   }, []);
 
   const handleProgramSelect = (programId) => {
