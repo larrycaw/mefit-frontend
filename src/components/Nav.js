@@ -60,6 +60,11 @@ const Nav = () => {
                    Add/modify Exercises (contributors)
                  </a>
                </li>
+               <li>
+                 <a className="hover:text-blue-800" href="/set-goal">
+                   Set goal
+                 </a>
+               </li>
              </ul>
              <div className="hidden xl:flex items-center space-x-5">
                <div className="hover:text-gray-200">

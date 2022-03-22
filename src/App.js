@@ -11,6 +11,7 @@ import PrivateRoute from "./helpers/PrivateRoute";
 import ProgramPage from "./components/Programs/ProgramPage";
 import UpdateProfilePage from "./components/UpdateProfile/UpdateProfilePage";
 import ContributeExercisesPage from "./components/ContributeExercises/ContributeExercisesPage";
+import SetGoalPage from "./components/SetGoal/SetGoalPage";
 
 function App() {
  return (
@@ -58,6 +59,14 @@ function App() {
              element={
                <PrivateRoute>
                  <ContributeExercisesPage />
+               </PrivateRoute>
+             }
+           />
+           <Route
+             path="/set-goal"
+             element={
+               <PrivateRoute>
+                 <SetGoalPage />
                </PrivateRoute>
              }
            />
