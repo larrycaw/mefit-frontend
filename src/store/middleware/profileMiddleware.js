@@ -1,10 +1,12 @@
 import { API_URL } from "../../API";
+import keycloak from "../../Keycloak";
 import {
   ACTION_PROFILE_CREATE,
   ACTION_PROFILE_FETCH,
   ACTION_PROFILE_UPDATE,
   profileCreateAction,
   profileFetchAction,
+  profileResetAction,
   profileSetAction,
 } from "../actions/profileActions";
 
@@ -47,10 +49,11 @@ export const profileMiddleware =
         })
         .then((result) =>
           // Update state with newly created profile
-          dispatch(profileSetAction(result))
+          dispatch(profileSetAction(keycloak.idTokenParsed.sub))
         )
         .catch((e) => {
-          console.log(e);
+          console.error(e);
+          dispatch(profileResetAction())
         });
     } else if (action.type === ACTION_PROFILE_FETCH) {
       // Fetches profile from database. Creates a new profile if it does not exist
@@ -71,7 +74,8 @@ export const profileMiddleware =
           } else dispatch(profileSetAction(result));
         })
         .catch((e) => {
-          console.log(e);
+          console.error(e);
+          dispatch(profileResetAction())
         });
     } else if (action.type === ACTION_PROFILE_UPDATE) {
       // Update profile in database
@@ -103,6 +107,7 @@ export const profileMiddleware =
         })
         .catch((e) => {
           console.error(e);
+          dispatch(profileResetAction())
         });
     }
   };
