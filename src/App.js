@@ -8,7 +8,7 @@ import SecuredPage from "./pages/Securedpage";
 import Dashboard from "./components/Goals/Dashboard";
 //import NewGoal from "./components/Goals/NewGoal";
 import GoalPage from "./components/Goals/GoalPage";
-import GoalDetails from "./components/Goals/GoalDetails";
+//import GoalDetails from "./components/Goals/GoalDetails";
 import WorkoutPage from "./components/Workouts/Workoutpage";
 import ExercisePage from "./components/Exercises/Exercisepage"
 import PrivateRoute from "./helpers/PrivateRoute";
@@ -36,14 +36,7 @@ function App() {
                     </PrivateRoute>
                 }
             />
-            <Route
-                path="/goal-details"
-                element={
-                    <PrivateRoute>
-                        <GoalDetails />
-                    </PrivateRoute>
-                }
-            />
+            // <Route path="/goal-details" element={ <PrivateRoute> <GoalDetails /> </PrivateRoute> } />
             <Route
                 path="/goals"
                 element={
