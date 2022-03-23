@@ -6,9 +6,7 @@ import Navbar from "./components/Navbar/Navbar"
 import WelcomePage from "./pages/Homepage";
 import SecuredPage from "./pages/Securedpage";
 import Dashboard from "./components/Goals/Dashboard";
-//import NewGoal from "./components/Goals/NewGoal";
 import GoalPage from "./components/Goals/GoalPage";
-//import GoalDetails from "./components/Goals/GoalDetails";
 import WorkoutPage from "./components/Workouts/Workoutpage";
 import ExercisePage from "./components/Exercises/Exercisepage"
 import PrivateRoute from "./helpers/PrivateRoute";
@@ -36,7 +34,6 @@ function App() {
                     </PrivateRoute>
                 }
             />
-            // <Route path="/goal-details" element={ <PrivateRoute> <GoalDetails /> </PrivateRoute> } />
             <Route
                 path="/goals"
                 element={
@@ -45,7 +42,6 @@ function App() {
                     </PrivateRoute>
                 }
             />
-            // <Route path="/new-goal" element={ <PrivateRoute> <NewGoal /> </PrivateRoute> } />
            <Route
              path="/secured"
              element={
