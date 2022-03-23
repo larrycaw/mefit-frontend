@@ -51,6 +51,9 @@ const Navbar = () => {
 						<li className="nav-item">
 							<NavLink className="nav-link" to="/update-profile">Profile page</NavLink>
 						</li>
+						<li className="nav-item">
+							<NavLink className="nav-link" to="/set-goal">Set goal page</NavLink>
+						</li>
 					</ul>
 					<ul className="navbar-nav ml-auto" style={{display: "inline-block"}}>
 						{!keycloak.authenticated && (
