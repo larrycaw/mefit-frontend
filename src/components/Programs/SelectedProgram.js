@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import AppContainer from "../../helpers/AppContainer";
 
 const SelectedProgram = (props) => {
 
@@ -11,11 +12,11 @@ const SelectedProgram = (props) => {
       })
 
     return (
-      <div>
+      <AppContainer>
         <h1>{props.program.name}</h1>
         <h2>Workouts in program:</h2>
         {props.program.workoutNames ? (workoutList) : (<i>No workouts in program</i>)}
-      </div>
+      </AppContainer>
     );
   }
 };

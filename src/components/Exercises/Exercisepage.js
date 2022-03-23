@@ -3,6 +3,7 @@ import keycloak from '../../Keycloak';
 import { API_URL } from "../../API.js";
 import { apiFetchAllSets, apiGetSetById } from '../../api/SetAPI';
 import { apiGetExercisesById, apiFetchAllExercises } from '../../api/ExerciseAPI';
+import AppContainer from '../../helpers/AppContainer';
 
 
 const ExercisePage = () => {
@@ -31,14 +32,14 @@ const ExercisePage = () => {
     }
 
     return (
-        <div>
+        <AppContainer>
             <h1 className="text-black text-4xl">Welcome to the Workout Page.</h1>
             <h2>All registered exercises:</h2>
             {exercises.map((exercise, i) => <button key={i} onClick={() => listInfo(exercise)}>{exercise.name}</button>)}
             <div>
                 {info}
             </div>
-        </div>
+        </AppContainer>
     );
 };
 
