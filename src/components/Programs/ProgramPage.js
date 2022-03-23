@@ -1,28 +1,24 @@
 import { React, useEffect, useState } from "react";
-import { API_URL } from "../../API";
+import { apiFetchAllPrograms } from "../../api/ProgramAPI";
 import ProgramList from "./ProgramList";
 import SelectedProgram from "./SelectedProgram";
 import AppContainer from "../../helpers/AppContainer";
 
 const ProgramPage = () => {
 
-    let [programs, setPrograms] = useState([]);
-    let [selectedProgram, setSelectedProgram] = useState({});
+  let [programs, setPrograms] = useState([]);
+  let [selectedProgram, setSelectedProgram] = useState({});
+
+    const getPrograms = async () => {
+      await apiFetchAllPrograms()
+      .then (result => result[1])
+      .then((data) => {
+        setPrograms(data);
+      })
+    }
 
   useEffect(() => {
-
-    fetch(`${API_URL}api/MFProgram/all`, {
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        setPrograms(result);
-        console.log(result)
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-
+      getPrograms();
   }, []);
 
   const handleProgramSelect = (programId) => {

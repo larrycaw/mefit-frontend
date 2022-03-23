@@ -13,8 +13,12 @@ import WorkoutPage from "./components/Workouts/Workoutpage";
 import ExercisePage from "./components/Exercises/Exercisepage"
 import PrivateRoute from "./helpers/PrivateRoute";
 import ProgramPage from "./components/Programs/ProgramPage";
+import ContributorWorkoutPage from "./components/Contributors/ContributorWorkout"
 import UpdateProfilePage from "./components/UpdateProfile/UpdateProfilePage";
 import 'react-calendar/dist/Calendar.css';
+import ContributorProgramPage from "./components/Contributors/ContributorProgram";
+import ContributeExercisesPage from "./components/ContributeExercises/ContributeExercisesPage";
+import SetGoalPage from "./components/SetGoal/SetGoalPage";
 
 function App() {
  return (
@@ -82,10 +86,42 @@ function App() {
            />
            <Route exact path="/programs" element={<PrivateRoute> <ProgramPage/> </PrivateRoute> }/>
            <Route
+             path="/workoutcontributor"
+             element={
+               <PrivateRoute>
+                 <ContributorWorkoutPage />
+               </PrivateRoute>
+              }
+             />
+             <Route
              path="/update-profile"
              element={
                <PrivateRoute>
                  <UpdateProfilePage />
+               </PrivateRoute>
+             }
+            />
+            <Route
+             path="/programcontributor"
+             element={
+               <PrivateRoute>
+                 <ContributorProgramPage />
+               </PrivateRoute>
+             }
+            />
+           <Route
+             path="/contribute/exercises"
+             element={
+               <PrivateRoute>
+                 <ContributeExercisesPage />
+               </PrivateRoute>
+             }
+           />
+           <Route
+             path="/set-goal"
+             element={
+               <PrivateRoute>
+                 <SetGoalPage />
                </PrivateRoute>
              }
            />

@@ -11,46 +11,63 @@ const Workout = () => {
     const [workouts, setWorkouts] = useState([])
     const [info, setInfo] = useState(["Click on a program for more info"])
     const [exercises, setExercises] = useState([])
+    const [workoutId, setWorkoutId] = useState([])
 
+    let wokroutIds = []
+    let ex = []
 
 
     const getAllWorkouts = async () => {
         await apiFetchAllWorkouts()
             .then(response => response[1])
-            .then(data => setWorkouts(data))
+            .then(data =>{
+                setWorkouts(data)
+                data.forEach(element => {
+                    wokroutIds.push(element.id)
+                });
+                wokroutIds.forEach(element => {
+                    getExerciseInWorkout(element)
+                });
+            })
     }
 
     const getExerciseInWorkout = async (id) => {
+        
         await apiGetExercisesByWorkoutId(id)
             .then(response => response[1])
-            .then(data => setExercises(data))
+            .then(data => {
+                ex.push({"key": id, "value": data})
+                setExercises(ex)
+            })
     }
-
 
     useEffect( () => {
         getAllWorkouts()
     },[])
 
 
-    const listInfo = (workout) => {
+    const listInfo = async (event, workout) => {
         let workoutInfo = []
         workoutInfo.push(`Type: ${workout.type} ##`)
+        workoutInfo.push(`Id: ${workout.id} ##`)
 
-        getExerciseInWorkout(workout.id)
         exercises.forEach(exercise => {
-            console.log(exercise)
-            workoutInfo.push(`Exercise: Name: ${exercise.name}, Description ${exercise.description}, Targeted muscle group: ${exercise.targetMuscleGroup}  ##`)
-
+            if(exercise.key == workout.id) {
+                exercise.value.forEach(item => {
+                    workoutInfo.push(`Exercise: Name: ${item.name}, Description ${item.description}, Targeted muscle group: ${item.targetMuscleGroup}  ##`)
+                });
+                
+            }
         });
-
-        setInfo(workoutInfo)
+        setInfo(workoutInfo)          
+        event.preventDefault()
     }
 
     return (
         <AppContainer>
             <h1 className="text-black text-4xl">Welcome to the Workout Page.</h1>
             <h2>All registered workouts:</h2>
-            {workouts.map((workout, i) => <button key={i} onClick={() => listInfo(workout)}>{workout.name}</button>)}
+            {workouts.map((workout, i) => <button key={i} onClick={(event) => listInfo(event, workout)}>{workout.name}</button>)}
             <div>
                 {info}
             </div>
