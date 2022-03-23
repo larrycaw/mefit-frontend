@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import keycloak from "../../Keycloak";
 import { profileFetchAction, profileUpdateAction } from "../../store/actions/profileActions";
+import AppContainer from "../../helpers/AppContainer";
 
 
 const UpdateProfilePage = () => {
@@ -70,7 +71,7 @@ const UpdateProfilePage = () => {
         dispatch(profileUpdateAction(newProfile))
     }
 
-  return <>
+  return <AppContainer>
   <h1>Your fitness:</h1>
   <div>Weight: {user.weight? <span>{user.weight} kg</span>: <span>no weight recorded</span>}</div>
   <div>Height: {user.height? <span>{user.height} cm</span> : <span>no height recorded</span>}</div>
@@ -104,7 +105,7 @@ const UpdateProfilePage = () => {
   </form>
   <h1>Update account details:</h1>
   <button><a href={accountURL}>Manage account</a></button>
-  </>;
+  </AppContainer>;
 };
 
 export default UpdateProfilePage;
