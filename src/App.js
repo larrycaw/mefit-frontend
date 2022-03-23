@@ -6,7 +6,7 @@ import Navbar from "./components/Navbar/Navbar"
 import WelcomePage from "./pages/Homepage";
 import SecuredPage from "./pages/Securedpage";
 import Dashboard from "./components/Goals/Dashboard";
-import NewGoal from "./components/Goals/NewGoal";
+//import NewGoal from "./components/Goals/NewGoal";
 import GoalPage from "./components/Goals/GoalPage";
 import GoalDetails from "./components/Goals/GoalDetails";
 import WorkoutPage from "./components/Workouts/Workoutpage";
@@ -52,14 +52,7 @@ function App() {
                     </PrivateRoute>
                 }
             />
-            <Route
-                path="/new-goal"
-                element={
-                    <PrivateRoute>
-                        <NewGoal />
-                    </PrivateRoute>
-                }
-            />
+            // <Route path="/new-goal" element={ <PrivateRoute> <NewGoal /> </PrivateRoute> } />
            <Route
              path="/secured"
              element={
