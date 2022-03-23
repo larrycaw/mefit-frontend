@@ -5,6 +5,7 @@ import {
   profileFetchAction,
   profileUpdateAction,
 } from "../store/actions/profileActions.js";
+import AppContainer from "../helpers/AppContainer";
 
 const Home = () => {
   const user = useSelector((state) => state.profile);
@@ -41,11 +42,11 @@ const Home = () => {
   // }, []);
 
   return (
-    <div>
+    <AppContainer>
       <h1 className="text-green-800 text-4xl">Welcome to the Homepage</h1>
       {/* <button onClick={updateUserInDB}>update user in db</button> */}
       <h4>current user disabilities is {user ? user.disabilities : ""}</h4>
-    </div>
+    </AppContainer>
   );
 };
 
