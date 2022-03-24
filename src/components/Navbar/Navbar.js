@@ -16,6 +16,8 @@ const Navbar = () => {
 		dispatch(profileResetAction());
 	else {
 		dispatch(profileFetchAction(keycloak.idTokenParsed.sub));
+		// console.log(keycloak.token)
+		// console.log(keycloak.idTokenParsed.sub)
 		// console.log(keycloak.tokenParsed.user_role[0])	
 	}
 }, [keycloak.idTokenParsed]);
