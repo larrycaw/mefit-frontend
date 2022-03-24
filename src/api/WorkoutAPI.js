@@ -1,9 +1,15 @@
 import { API_URL } from "../API"
+import keycloak from "../Keycloak";
 
 export async function apiFetchAllWorkouts() {
-
+    const requestOptions = {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${keycloak.token}`
+        }
+    }
     try {
-        const response = await fetch(`${API_URL}api/Workouts/all`)
+        const response = await fetch(`${API_URL}api/Workouts/all`, requestOptions)
         const data = await response.json()
 
         return [null, data]
@@ -16,7 +22,8 @@ export async function apiFetchAllWorkouts() {
 export async function apiGetExercisesByWorkoutId(id) {
     const requestOptions = {
         headers: {
-            'id': id
+            'id': id,
+            'Authorization': `Bearer ${keycloak.token}`
         }
     }
 
@@ -35,7 +42,8 @@ export async function apiCreateWorkout(workoutName, workoutType) {
     const requestOptions = {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${keycloak.token}`
         },
         body: JSON.stringify({
             "name": workoutName,
@@ -59,7 +67,8 @@ export async function apiUpdateWorkout(id, workoutName, workoutType) {
         method: 'PUT',
         headers: {
             'id': id,
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${keycloak.token}`
         },
         body: JSON.stringify({
             "id": id,
@@ -85,7 +94,8 @@ export async function apiAssignSetByExercise(id, exerciseIDs) {
         method: 'PUT',
         headers: {
             'id': id,
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${keycloak.token}`
         },
         body: JSON.stringify(exerciseIDs)
      
@@ -108,7 +118,8 @@ export async function apiAssignSetToWorkout(id, setIds) {
         method: 'PUT',
         headers: {
             'id': id,
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${keycloak.token}`
         },
         body: JSON.stringify(setIds)
     }

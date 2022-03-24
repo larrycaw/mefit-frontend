@@ -28,6 +28,8 @@ export const profileMiddleware =
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          'Authorization': `Bearer ${keycloak.token}`
+          
         },
         body: JSON.stringify({
           id: action.payload.id,
@@ -62,6 +64,7 @@ export const profileMiddleware =
         headers: {
           id: action.payload,
           "Content-Type": "application/json",
+          'Authorization': `Bearer ${keycloak.token}`
         },
       };
 
@@ -85,6 +88,7 @@ export const profileMiddleware =
         headers: {
           id: action.payload.id,
           "Content-Type": "application/json",
+          'Authorization': `Bearer ${keycloak.token}`
         },
         body: JSON.stringify({
           id: action.payload.id,

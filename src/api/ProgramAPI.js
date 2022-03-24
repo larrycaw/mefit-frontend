@@ -41,7 +41,8 @@ export async function apiCreateProgram(programName, programCategory) {
     const requestOptions = {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            "Authorization": `Bearer ${keycloak.token}`
         },
         body: JSON.stringify({
             "name": programName,
@@ -65,7 +66,8 @@ export async function apiUpdateProgram(id, programName, programCategory) {
         method: 'PUT',
         headers: {
             'id': id,
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            "Authorization": `Bearer ${keycloak.token}`
         },
         body: JSON.stringify({
             "id": id,
@@ -91,7 +93,8 @@ export async function apiAssignWorkout(id, workoutIDs) {
         method: 'POST',
         headers: {
             'id': id,
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            "Authorization": `Bearer ${keycloak.token}`
         },
         body: JSON.stringify(workoutIDs)
      
