@@ -5,7 +5,6 @@ import { apiFetchAllWorkouts } from "../../api/WorkoutAPI";
 import { Calendar } from "react-calendar";
 import { apiCreateUserGoal } from "../../api/GoalsAPI";
 import keycloak from "../../Keycloak";
-import WorkoutCheckboxForm from "./WorkoutCheckboxForm";
 
 const SetGoalPage = () => {
   // Variables holding all programs and workouts
