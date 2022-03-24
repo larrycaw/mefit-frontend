@@ -40,7 +40,6 @@ export async function apiCreateWorkout(workoutName, workoutType) {
         body: JSON.stringify({
             "name": workoutName,
             "type": workoutType,
-            "complete": false
         })
     }
 
@@ -55,7 +54,7 @@ export async function apiCreateWorkout(workoutName, workoutType) {
     }
 }
 
-export async function apiUpdateWorkout(id, workoutName, workoutType, workoutCompleted) {
+export async function apiUpdateWorkout(id, workoutName, workoutType) {
     const requestOptions = {
         method: 'PUT',
         headers: {
@@ -66,7 +65,6 @@ export async function apiUpdateWorkout(id, workoutName, workoutType, workoutComp
             "id": id,
             "name": workoutName,
             "type": workoutType,
-            "complete": workoutCompleted
         })
     }
 
