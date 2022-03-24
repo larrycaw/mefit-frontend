@@ -14,7 +14,6 @@ const ContributorWorkoutPage = () => {
     const [chosenWorkout, setChosenWorkout] = useState([])
     const [chosenWorkoutName, setChosenWorkoutName] = useState("")
     const [chosenWorkoutType, setChosenWorkoutType] = useState("")
-    const [chosenWorkoutCompleted, setChosenWorkoutCompleted] = useState(false)
     const [checked, setChecked] = useState([])
     const [newSets, setNewSets] = useState([])
     const [createdSets, setCreatedSets] = useState([])
@@ -51,19 +50,32 @@ const ContributorWorkoutPage = () => {
     const handleChangeTypeEdit = (event) => {
         setChosenWorkoutType(event.target.value)
     }
-    const handleChangeTypeCompleted = (event) => {
-        setChosenWorkoutCompleted(event.target.checked)
-    }
 
     const handleSubmit = (event) => {
         apiCreateWorkout(workoutName, workoutType)
         alert("A new workout is created")
-        // event.preventDefault()
     }
 
     const handleEdit = (event) => {
-        apiUpdateWorkout(chosenWorkout.id, chosenWorkoutName, chosenWorkoutType, chosenWorkoutCompleted)
-        alert(chosenWorkoutName + chosenWorkoutType + chosenWorkoutCompleted)
+        console.log(chosenWorkout.id)
+
+        if(chosenWorkoutName == "" && chosenWorkoutType == "") {
+            alert("Insert edits")
+        }
+        else if (chosenWorkoutName != "" && chosenWorkoutType != "") {
+            apiUpdateWorkout(chosenWorkout.id, chosenWorkoutName, chosenWorkoutType) 
+            alert("Workout is edited")
+        }
+        else if(chosenWorkoutName == "" && chosenWorkoutType != "") {
+            apiUpdateWorkout(chosenWorkout.id, chosenWorkout.name, chosenWorkoutType) 
+            alert("Workout is edited")
+
+        }
+        else if(chosenWorkoutName != "" && chosenWorkoutType == "") {
+            apiUpdateWorkout(chosenWorkout.id, chosenWorkoutName, chosenWorkout.type)  
+            alert("Workout is edited")
+
+        }
         event.preventDefault()
     }
 
@@ -85,12 +97,9 @@ const ContributorWorkoutPage = () => {
         await apiCreateSet(key, value)
             .then(response => response[1])
             .then(data => {
-                // console.log(data.id)
-                // updateCreatedSets.push(data.id)
                 newSetList.push(data.id)
                 setCreatedSets(newSetList)
             })
-            // .then(data => setCreatedSets(updateCreatedSets))
     }
 
     const handleCheck = (event) => {
@@ -102,16 +111,10 @@ const ContributorWorkoutPage = () => {
                 checked.forEach(check => {
                     if(check == element.key) {
                         handleCreateSet(element.key, element.value)
-                        // apiCreateSet(element.key, element.value)
-
                     }
                 });
             });
             console.log(createdSets)  
-            // console.log(newSetList)
-            // setCreatedSets(newSetList)
-            
-        
             apiAssignSetToWorkout(chosenWorkout.id, createdSets)
         }
         event.preventDefault()
@@ -122,9 +125,6 @@ const ContributorWorkoutPage = () => {
     }
 
     const handleRepetitions = (event, exercise) => {
-        // console.log(event.target.value)
-        // console.log(exercise.name)
-
         var updateNewSets = [...newSets]
         const exists = updateNewSets.some(v => (v.key == exercise.id))
 
@@ -140,8 +140,6 @@ const ContributorWorkoutPage = () => {
                 }
             });
         }
-
-        // console.log(newSets)
         event.preventDefault()
 
     }
@@ -168,6 +166,9 @@ const ContributorWorkoutPage = () => {
                 {workouts.map((workout, i) => <button key={i} onClick={() => listInfo(workout)}>{workout.name}</button>)}
                 <h3>Chosen workout: {chosenWorkout.name}</h3>
                 <h4>Edit workout</h4>
+                <h6>Old name: {chosenWorkout.name}</h6>
+                <h6>Old type: {chosenWorkout.type}</h6>
+
                 <form onSubmit={handleEdit}>
                     <label>
                         New name of workout:
@@ -176,10 +177,6 @@ const ContributorWorkoutPage = () => {
                     <label>
                         New type of workout:
                         <input type="text" value={chosenWorkoutType} onChange={handleChangeTypeEdit}/>
-                    </label>
-                    <label>
-                        Completed?
-                        <input type="checkbox" value={chosenWorkoutCompleted} onChange={handleChangeTypeCompleted}/>
                     </label>
                     <input type="submit" value="Submit" />
                 </form>
