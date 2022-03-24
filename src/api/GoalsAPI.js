@@ -80,9 +80,16 @@ export async function apiCreateUserGoal(newGoal, userId){
         const response = await fetch(`${API_URL}api/Goals`, requestOptions)
         const data = await response.json()
 
-        if (newGoal.workouts > 0){
+
+        console.log(newGoal.workouts)
+        // TODO: add workout ids from program too!!!!
+
+
+
+        if (newGoal.workouts.length > 0){
             // Assign workouts to newly created goal
-            return apiAssignWorkoutsToGoal(data.id, newGoal.workouts)
+            apiAssignWorkoutsToGoal(data.id, newGoal.workouts)
+            .then(response => response)
         }
 
         return [null, data]
@@ -94,6 +101,7 @@ export async function apiCreateUserGoal(newGoal, userId){
 
 
 export async function apiAssignWorkoutsToGoal (goalId, workoutIds){
+    console.log("hello")
     const requestOptions = {
         method: 'PUT',
         headers: {
@@ -103,6 +111,8 @@ export async function apiAssignWorkoutsToGoal (goalId, workoutIds){
         },
         body: JSON.stringify(workoutIds)
     }
+
+    console.log(requestOptions.body)
 
     try {
         const response = await fetch(`${API_URL}api/Goals/assignWorkouts`, requestOptions)
