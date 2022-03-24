@@ -17,6 +17,7 @@ import 'react-calendar/dist/Calendar.css';
 import ContributorProgramPage from "./components/Contributors/ContributorProgram";
 import ContributeExercisesPage from "./components/ContributeExercises/ContributeExercisesPage";
 import SetGoalPage from "./components/SetGoal/SetGoalPage";
+import GoalDetails from "./components/Goals/GoalDetails";
 
 function App() {
  return (
@@ -39,6 +40,14 @@ function App() {
                 element={
                     <PrivateRoute>
                         <GoalPage />
+                    </PrivateRoute>
+                }
+            />
+            <Route
+                path="/goal-details"
+                element={
+                    <PrivateRoute>
+                        <GoalDetails />
                     </PrivateRoute>
                 }
             />
