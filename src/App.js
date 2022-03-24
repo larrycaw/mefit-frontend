@@ -42,6 +42,14 @@ function App() {
                     </PrivateRoute>
                 }
             />
+            <Route
+                path="/goal-details"
+                element={
+                    <PrivateRoute>
+                        <GoalDetails />
+                    </PrivateRoute>
+                }
+            />
            <Route
              path="/secured"
              element={

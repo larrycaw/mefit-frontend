@@ -19,6 +19,24 @@ export async function apiFetchAllPrograms() {
     }
 }
 
+export async function apiFetchProgram(id) {
+
+    try {
+        const response = await fetch(`${API_URL}api/MFProgram`, {
+            headers: { 
+                "id": id,
+                "Authorization": `Bearer ${keycloak.token}`
+            },
+          })
+        const data = await response.json()
+
+        return [null, data]
+    }
+    catch (e){
+        return[e.message, []]
+    }
+}
+
 export async function apiCreateProgram(programName, programCategory) {
     const requestOptions = {
         method: 'POST',

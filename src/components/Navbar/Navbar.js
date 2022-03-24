@@ -22,7 +22,7 @@ const Navbar = () => {
 		
 
 	return (
-		<nav className="navbar navbar-expand-md navbar-light bg-light mb-3 fixed-top">
+		<nav className="navbar navbar-expand-md navbar-light bg-light mb-3 navbar-static-top">
 			<AppContainer>
 				<Link className="navbar-brand" to="#">MeFit</Link>
 				<button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar">

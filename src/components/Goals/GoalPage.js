@@ -7,6 +7,12 @@ import { apiFetchAllWorkouts } from '../../api/WorkoutAPI'
 
 const GoalPage = () => {
 
+	/* 
+		TODO: update useState type to correct ..
+		.. endpoint return type object {} / array [] 
+
+		Try catch on getCurrentGoal to avoid 404 error in console on no goal set?
+	*/
 	const [goals, setGoals] = useState({})
 	const [currentGoal, setCurrentGoal] = useState([])
 	const [workouts, setWorkouts] = useState({})
@@ -14,8 +20,8 @@ const GoalPage = () => {
 	
 	const getCurrentGoal = async (id) => {
 		await apiGetCurrentGoal(id)
-		.then(response => response[1])
-		.then(data => setCurrentGoal(data))	
+			.then(response => response[1])
+			.then(data => setCurrentGoal(data))
 	}
 	
 	const getUserGoals = async (id) => {
@@ -60,7 +66,7 @@ const GoalPage = () => {
 			}
 		}
 
-		for(let i = 0; i< workouts.length; i++){
+		for(let i = 0; i < workouts.length; i++){
 			if (workouts[i].complete !== undefined 
 				&& workouts[i].complete === true) {
 				workoutIds.push(workouts[i].id)
@@ -79,6 +85,7 @@ const GoalPage = () => {
 		for (let i = 0; i < crossProduct(); i++) {
 			index += 1;
 		}
+
 		return index;
 	}
 
