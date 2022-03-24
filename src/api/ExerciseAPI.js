@@ -1,8 +1,10 @@
 // const apiURL = "https://mefit.azurewebsites.net/api"
 import { API_URL } from "../API"
-import keycloak from "keycloak-js"
+import keycloak from "../Keycloak"
 
 export async function apiFetchAllExercises() {
+
+  console.log(keycloak.tokenParsed)
 
     const requestOptions = {
       headers: {
