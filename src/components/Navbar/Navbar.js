@@ -12,15 +12,13 @@ const Navbar = () => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-	if (!keycloak.idTokenParsed)
+	if (!keycloak.authenticated){
 		dispatch(profileResetAction());
-	else {
-		dispatch(profileFetchAction(keycloak.idTokenParsed.sub));
-		// console.log(keycloak.token)
-		// console.log(keycloak.idTokenParsed.sub)
-		// console.log(keycloak.tokenParsed.user_role[0])	
 	}
-}, [keycloak.idTokenParsed]);
+	else {
+		dispatch(profileFetchAction(keycloak.idTokenParsed.sub));	
+	}
+}, [keycloak.idToken]);
 		
 
 	return (
@@ -36,26 +34,34 @@ const Navbar = () => {
 							<NavLink className="nav-link" to="/">Home</NavLink>
 						</li>
 						<li className="nav-item">
-							<NavLink className="nav-link" to="/secured">Secured page</NavLink>
+							<NavLink className="nav-link" to="/profile">Profile</NavLink>
 						</li>
 						<li className="nav-item">
-							<NavLink className="nav-link" to="/dashboard">Dashboard</NavLink>
+							<NavLink className="nav-link" to="/workouts">Workouts</NavLink>
 						</li>
 						<li className="nav-item">
-							<NavLink className="nav-link" to="/workouts">Workouts page</NavLink>
+							<NavLink className="nav-link" to="/exercises">Exercises</NavLink>
 						</li>
 						<li className="nav-item">
-							<NavLink className="nav-link" to="/exercises">Exercise page</NavLink>
+							<NavLink className="nav-link" to="/programs">Programs</NavLink>
 						</li>
 						<li className="nav-item">
-							<NavLink className="nav-link" to="/programs">Programs page</NavLink>
+							<NavLink className="nav-link" to="/set-goal">Set goal</NavLink>
 						</li>
-						<li className="nav-item">
-							<NavLink className="nav-link" to="/update-profile">Profile page</NavLink>
-						</li>
-						<li className="nav-item">
-							<NavLink className="nav-link" to="/set-goal">Set goal page</NavLink>
-						</li>
+
+						{keycloak.tokenParsed.user_role.includes("Contributor") ? 
+							<>
+							<li className="nav-item">
+								<NavLink className="nav-link" to="/programcontributor">Add/edit programs</NavLink>
+							</li>
+							<li className="nav-item">
+								<NavLink className="nav-link" to="/workoutcontributor">Add/edit workouts</NavLink>
+							</li>
+							<li className="nav-item">
+								<NavLink className="nav-link" to="/contribute/exercises">Add/edit exercises</NavLink>
+							</li
+							></>
+						: <></>}
 					</ul>
 					<ul className="navbar-nav ml-auto" style={{display: "inline-block"}}>
 						{!keycloak.authenticated && (
@@ -69,7 +75,7 @@ const Navbar = () => {
 						{!!keycloak.authenticated && (
 							<div className="d-flex">
 								<li style={{paddingRight: "1em"}} className="nav-item">
-									<NavLink className="nav-link d-flex" to="/update-profile">{keycloak.tokenParsed.preferred_username}</NavLink>
+									<NavLink className="nav-link d-flex" to="/profile">{keycloak.tokenParsed.preferred_username}</NavLink>
 								</li>
 
 								<button

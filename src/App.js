@@ -3,117 +3,130 @@ import { ReactKeycloakProvider } from "@react-keycloak/web";
 import keycloak from "./Keycloak";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar"
-import WelcomePage from "./pages/Homepage";
-import SecuredPage from "./pages/Securedpage";
 import Dashboard from "./components/Goals/Dashboard";
 import GoalPage from "./components/Goals/GoalPage";
 import WorkoutPage from "./components/Workouts/Workoutpage";
 import ExercisePage from "./components/Exercises/Exercisepage"
-import PrivateRoute from "./helpers/PrivateRoute";
+import ProtectRoute from "./helpers/ProtectRoute";
 import ProgramPage from "./components/Programs/ProgramPage";
 import ContributorWorkoutPage from "./components/Contributors/ContributorWorkout"
-import UpdateProfilePage from "./components/UpdateProfile/UpdateProfilePage";
+import ProfilePage from "./components/Profile/ProfilePage";
 import 'react-calendar/dist/Calendar.css';
 import ContributorProgramPage from "./components/Contributors/ContributorProgram";
 import ContributeExercisesPage from "./components/ContributeExercises/ContributeExercisesPage";
 import SetGoalPage from "./components/SetGoal/SetGoalPage";
 import GoalDetails from "./components/Goals/GoalDetails";
+import ContributorRoute from "./helpers/ContributorRoute";
 
 function App() {
  return (
    <div>
-     <ReactKeycloakProvider authClient={keycloak}>
+     <ReactKeycloakProvider authClient={keycloak} initOptions={{ onLoad: 'login-required'}}>
        <BrowserRouter>
-       <Navbar />
          <Routes>
-           <Route exact path="/" element={<WelcomePage />} />
            <Route
-                path="/dashboard"
+                path="/"
                 element={
-                    <PrivateRoute>
+                    <ProtectRoute>
+                      <Navbar />
                         <Dashboard />
-                    </PrivateRoute>
+                    </ProtectRoute>
                 }
             />
             <Route
                 path="/goals"
                 element={
-                    <PrivateRoute>
+                    <ProtectRoute>
+                      <Navbar />
                         <GoalPage />
-                    </PrivateRoute>
+                    </ProtectRoute>
                 }
             />
             <Route
                 path="/goal-details"
                 element={
-                    <PrivateRoute>
+                    <ProtectRoute>
+                      <Navbar />
                         <GoalDetails />
-                    </PrivateRoute>
+                    </ProtectRoute>
                 }
             />
-           <Route
-             path="/secured"
-             element={
-               <PrivateRoute>
-                 <SecuredPage />
-               </PrivateRoute>
-             }
-           />
           <Route
              path="/workouts"
              element={
-               <PrivateRoute>
+               <ProtectRoute>
+                 <Navbar />
                  <WorkoutPage />
-               </PrivateRoute>
+               </ProtectRoute>
              }
            />
           <Route
              path="/exercises"
              element={
-               <PrivateRoute>
+               <ProtectRoute>
+                 <Navbar />
                  <ExercisePage />
-               </PrivateRoute>
+               </ProtectRoute>
              }
            />
-           <Route exact path="/programs" element={<PrivateRoute> <ProgramPage/> </PrivateRoute> }/>
+           <Route 
+           exact path="/programs" 
+           element={
+           <ProtectRoute> 
+             <Navbar />
+             <ProgramPage/> 
+             </ProtectRoute> 
+            }
+            />
            <Route
              path="/workoutcontributor"
              element={
-               <PrivateRoute>
+              <ProtectRoute>
+                <Navbar />
+               <ContributorRoute>
                  <ContributorWorkoutPage />
-               </PrivateRoute>
+               </ContributorRoute>
+               </ProtectRoute>
               }
              />
              <Route
-             path="/update-profile"
+             path="/profile"
              element={
-               <PrivateRoute>
-                 <UpdateProfilePage />
-               </PrivateRoute>
+               <ProtectRoute>
+                 <Navbar />
+                 <ProfilePage />
+               </ProtectRoute>
              }
             />
             <Route
              path="/programcontributor"
              element={
-               <PrivateRoute>
+              <ProtectRoute>
+                <Navbar />
+               <ContributorRoute>
                  <ContributorProgramPage />
-               </PrivateRoute>
+               </ContributorRoute>
+               </ProtectRoute>
              }
             />
            <Route
              path="/contribute/exercises"
              element={
-               <PrivateRoute>
+               <ProtectRoute>
+                 <Navbar />
+               <ContributorRoute>
                  <ContributeExercisesPage />
-               </PrivateRoute>
+               </ContributorRoute>
+               </ProtectRoute>
              }
            />
            <Route
              path="/set-goal"
              element={
-               <PrivateRoute>
+               <ProtectRoute>
+                 <Navbar />
                  <SetGoalPage />
-               </PrivateRoute>
+               </ProtectRoute>
              }
            />
          </Routes>
