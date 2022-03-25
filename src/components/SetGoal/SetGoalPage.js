@@ -53,7 +53,7 @@ const SetGoalPage = () => {
       if (!response[1].status && !(response[1].status === 404)) {
         // User has current goal, redirect to dashboard
         alert("You already have an active goal, so you cannot set a new one.");
-        nav("/dashboard");
+        nav("/");
       }
     });
   };
@@ -107,7 +107,7 @@ const SetGoalPage = () => {
         alert(`Something went wrong: ${response[0]}`);
       } else {
         console.log(response[1]);
-        nav("/dashboard");
+        nav("/");
       }
     });
   };

@@ -12,15 +12,13 @@ const Navbar = () => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-	if (!keycloak.idTokenParsed)
+	if (!keycloak.authenticated){
 		dispatch(profileResetAction());
-	else {
-		dispatch(profileFetchAction(keycloak.idTokenParsed.sub));
-		// console.log(keycloak.token)
-		// console.log(keycloak.idTokenParsed.sub)
-		// console.log(keycloak.tokenParsed.user_role[0])	
 	}
-}, [keycloak.idTokenParsed]);
+	else {
+		dispatch(profileFetchAction(keycloak.idTokenParsed.sub));	
+	}
+}, [keycloak.idToken]);
 		
 
 	return (
@@ -34,12 +32,6 @@ const Navbar = () => {
 					<ul className="navbar-nav me-auto mb-2 mb-lg-0">
 						<li className="nav-item">
 							<NavLink className="nav-link" to="/">Home</NavLink>
-						</li>
-						<li className="nav-item">
-							<NavLink className="nav-link" to="/secured">Secured page</NavLink>
-						</li>
-						<li className="nav-item">
-							<NavLink className="nav-link" to="/dashboard">Dashboard</NavLink>
 						</li>
 						<li className="nav-item">
 							<NavLink className="nav-link" to="/workouts">Workouts page</NavLink>

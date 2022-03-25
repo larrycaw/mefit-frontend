@@ -3,8 +3,6 @@ import { ReactKeycloakProvider } from "@react-keycloak/web";
 import keycloak from "./Keycloak";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar"
-import WelcomePage from "./pages/Homepage";
-import SecuredPage from "./pages/Securedpage";
 import Dashboard from "./components/Goals/Dashboard";
 import GoalPage from "./components/Goals/GoalPage";
 import WorkoutPage from "./components/Workouts/Workoutpage";
@@ -22,13 +20,12 @@ import GoalDetails from "./components/Goals/GoalDetails";
 function App() {
  return (
    <div>
-     <ReactKeycloakProvider authClient={keycloak}>
+     <ReactKeycloakProvider authClient={keycloak} initOptions={{ onLoad: 'login-required'}}>
        <BrowserRouter>
        <Navbar />
          <Routes>
-           <Route exact path="/" element={<WelcomePage />} />
            <Route
-                path="/dashboard"
+                path="/"
                 element={
                     <PrivateRoute>
                         <Dashboard />
@@ -51,14 +48,6 @@ function App() {
                     </PrivateRoute>
                 }
             />
-           <Route
-             path="/secured"
-             element={
-               <PrivateRoute>
-                 <SecuredPage />
-               </PrivateRoute>
-             }
-           />
           <Route
              path="/workouts"
              element={
