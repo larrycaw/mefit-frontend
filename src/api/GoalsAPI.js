@@ -2,17 +2,8 @@ import { API_URL } from "../API"
 import keycloak from "../Keycloak"
 
 export async function apiGetCurrentGoal(id) {
-    // const requestOptions = {
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //         'UserId': id,
-    //         'Authorization': `Bearer ${keycloak.token}`
-    //     }
-    // }
     
     try {
-        console.log("apigetcurrentfdjasod")
-        // const response = await fetch(`${API_URL}api/Goals/currentGoal`, requestOptions)
         const response = await fetch(`${API_URL}api/Goals/currentGoal`, {
             headers: { 
                 "Content-Type": "application/json",
@@ -20,7 +11,6 @@ export async function apiGetCurrentGoal(id) {
                 'userId': keycloak.idTokenParsed.sub
             },
           });
-          console.log("hello")
         const data = await response.json()
 
         return [null, data]
@@ -34,14 +24,6 @@ export async function apiGetCurrentGoal(id) {
 export async function apiGetGoalById(id) {
     // GET GOAL BY GOAL ID
     try {
-        // const requestOptions = {
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         'Authorization': `Bearer ${keycloak.token}`,
-        //         'UserId': keycloak.idTokenParsed.sub
-        //     }
-        // }
-        // const response = await fetch(`${API_URL}api/Goals/user`, requestOptions)
 
         const response = await fetch(`${API_URL}api/Goals/user`, {
             headers: { 
@@ -60,15 +42,8 @@ export async function apiGetGoalById(id) {
 }
 
 export async function apiGetUserGoals(id) {
-    // const requestOptions = {
-    //     headers: {
-    //         'UserId': keycloak.idTokenParsed.sub,
-    //         'Authorization': `Bearer ${keycloak.token}`
-    //     }
-    // }
 
     try {
-        // const response = await fetch(`${API_URL}api/Goals/user`, requestOptions)
         const response = await fetch(`${API_URL}api/Goals/user`, {
             headers: { 
                 "Content-Type": "application/json",
@@ -97,29 +72,24 @@ export async function apiCreateUserGoal(newGoal, userId){
         },
         body: JSON.stringify({
             "programEndDate": newGoal.endDate.toJSON(),
-            "programId": 1,
-            "profileId": userId
+            "programId": newGoal.program,
+            "profileId": keycloak.idTokenParsed.sub
         })
     }
 
-    console.log(requestOptions.body)
     try {
         const response = await fetch(`${API_URL}api/Goals`, requestOptions)
-        const data = await response.json()
 
-
-        console.log(newGoal.workouts)
-        // TODO: add workout ids from program too!!!!
-
-
-
-        if (newGoal.workouts.length > 0){
-            // Assign workouts to newly created goal
-            apiAssignWorkoutsToGoal(data.id, newGoal.workouts)
-            .then(response => response)
+        if (response.status === 409){
+            return ["You already have an active goal", []]
         }
 
-        return [null, data]
+        const data = await response.json()
+
+        for (const workoutId of newGoal.workouts) {
+            await apiAssignWorkoutsToGoal(data.id, workoutId)
+        }
+        return [null, []]
     }
     catch(e){
         return [e.message, []]
@@ -127,8 +97,9 @@ export async function apiCreateUserGoal(newGoal, userId){
 }
 
 
-export async function apiAssignWorkoutsToGoal (goalId, workoutIds){
-    console.log("hello")
+export async function apiAssignWorkoutsToGoal (goalId, workoutId){
+    // Assigns workout to existing goal
+
     const requestOptions = {
         method: 'PUT',
         headers: {
@@ -136,16 +107,16 @@ export async function apiAssignWorkoutsToGoal (goalId, workoutIds){
             'Authorization': `Bearer ${keycloak.token}`,
             'GoalID': goalId
         },
-        body: JSON.stringify(workoutIds)
+        body: JSON.stringify({
+            "workoutId":  workoutId,
+            "goalId": goalId,
+            "completed": false
+        })
     }
 
-    console.log(requestOptions.body)
-
     try {
-        const response = await fetch(`${API_URL}api/Goals/assignWorkouts`, requestOptions)
+        const response = await fetch(`${API_URL}api/GoalWorkout`, requestOptions)
         const data = await response.json()
-        console.log(data)
-        console.log(response)
 
         return [null, data]
     }

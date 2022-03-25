@@ -1,29 +1,36 @@
-import { useEffect, useState } from "react";
-import { apiFetchAllExercises } from "../../api/ExerciseAPI";
+import { useEffect, useRef, useState } from "react";
 import { apiFetchAllPrograms } from "../../api/ProgramAPI";
 import { apiFetchAllWorkouts } from "../../api/WorkoutAPI";
 import { Calendar } from "react-calendar";
-import { apiCreateUserGoal } from "../../api/GoalsAPI";
+import { apiCreateUserGoal, apiGetCurrentGoal } from "../../api/GoalsAPI";
 import keycloak from "../../Keycloak";
+import Select from "react-select";
+import { useNavigate } from "react-router-dom";
 
 const SetGoalPage = () => {
+
+  const nav = useNavigate();
+
   // Variables holding all programs and workouts
   const [programs, setPrograms] = useState([]);
   const [workouts, setWorkouts] = useState([]);
 
+    // Stores available workouts one can add to their goal (workouts not in selected program)
+    const [availableWorkouts, setAvailableWorkouts] = useState([]);
+
   // End date variables
   const suggestedEndDate = new Date();
-  suggestedEndDate.setDate(suggestedEndDate.getDate() + 7);
-
   const minDate = new Date();
+  suggestedEndDate.setDate(suggestedEndDate.getDate() + 7);
   minDate.setDate(minDate.getDate() + 1);
 
   // Form variables
   const [formProgram, setFormProgram] = useState({});
-  const [availableWorkouts, setAvailableWorkouts] = useState([]);
   const [selectedWorkouts, setSelectedWorkouts] = useState([]);
   const [endDate, setEndDate] = useState(suggestedEndDate);
-  // const [workoutList, setWorkoutList] = useState(<></>);
+
+  // Ref for workout selection input box
+  const workoutSelection = useRef(null);
 
   const getPrograms = async () => {
     await apiFetchAllPrograms()
@@ -42,39 +49,31 @@ const SetGoalPage = () => {
       });
   };
 
+  const checkIfUserHasGoal = async () => {
+    await apiGetCurrentGoal(keycloak.idTokenParsed.sub)
+    .then(response => {
+      if (!response[1].status && !(response[1].status === 404)){
+        // User has current goal, redirect to dashboard
+        alert("You already have an active goal, so you cannot set a new one.")
+        nav("/dashboard")
+      }
+    })
+  }
+
   useEffect(() => {
-    // TODO: CHECK IF USER HAS CURRENT GOAL
+    checkIfUserHasGoal();
     getPrograms();
     getWorkouts();
   }, []);
 
-  const handleWorkoutClick = (e) => {
-    // Updates workout object to reflect that a workout is checked
-    console.log(`id: ${e.target.id}`)
-    console.log(`checked: ${e.target.checked}`)
-    // let newFormWorkouts = formWorkouts;
-    // let test = newFormWorkouts.find(
-    //   (w) => w["workout"].id === parseInt(e.target.id)
-    // );
-    // test["checked"] = e.target.checked;
-    // setFormWorkouts(newFormWorkouts);
-
-
-    // let newFormWorkouts = [];
-
-    // formWorkouts.forEach((workout) => {
-    //   if (workout["workout"].id === parseInt(e.target.id)) {
-    //     availableWorkouts.push(workout);
-    //   }
-    // });
-    // // CHECKED DOES NOT GET UPDATED ON SELECTING NEW PROGRAM
-    // setFormWorkouts(
-    //   availableWorkouts.map((w) => ({ workout: w, checked: false }))
-    // );
-  };
+  useEffect(() => {
+    // Reset selected workouts (state and select box) when available workouts changes
+    setSelectedWorkouts([])
+    workoutSelection.current.setValue([])
+  },[availableWorkouts])
 
   const handleProgramSelect = (e) => {
-    // set selected program and update additional workouts you can add
+    // Set selected program and updates additional workouts you can add to goal
     let selectedProgram = programs.find(
       (p) => p.id === parseInt(e.target.value)
     );
@@ -86,13 +85,12 @@ const SetGoalPage = () => {
         addableWorkouts.push(workout);
       }
     });
-    // CHECKED DOES NOT GET UPDATED ON SELECTING NEW PROGRAM
+    
     setAvailableWorkouts(addableWorkouts);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // TO DO FIX
 
     if (Object.keys(formProgram).length === 0) {
       alert("A goal must have a program");
@@ -100,42 +98,25 @@ const SetGoalPage = () => {
     }
 
     let newGoal = {
-      workouts: selectedWorkouts
-        .map((w) => w.id),
+      workouts: [...formProgram.workouts, ...selectedWorkouts],
       program: formProgram.id,
       endDate: endDate,
     };
 
-    console.log(newGoal);
-
-    // apiCreateUserGoal(newGoal, keycloak.idTokenParsed.sub)
-    // .then ((response) => {
-    //     if (response[0]){
-    //         console.log(response[0])
-    //     }
-    //     else {
-    //         console.log("success")
-    //     }
-    // })
+    apiCreateUserGoal(newGoal, keycloak.idTokenParsed.sub)
+    .then ((response) => {
+        if (response[0]){
+            console.error(response[0]);
+            alert(`Something went wrong: ${response[0]}`)
+        }
+        else {
+            console.log(response[1])
+            nav("/dashboard")
+        }
+    })
   };
 
-  let workoutList = availableWorkouts.map((workout) => {
-    return (
-      <>
-        <input
-          type="checkbox"
-          id={workout.id}
-          value={workout.id}
-          defaultChecked={false}
-          onChange={handleWorkoutClick}
-        />
-        <label>
-          {workout.name}
-        </label>
-        <br />
-      </>
-    );
-  });
+
 
   let programList = programs.map((program) => {
     return (
@@ -152,6 +133,26 @@ const SetGoalPage = () => {
     );
   });
 
+  // Options for select box
+  const workoutOptions = availableWorkouts.map((workout) => {
+    return {value: workout.id, label: workout.name}
+  })
+
+  let updateSelectedWorkouts = (workouts) => {
+    // Updates selectedWorkouts with data in selection box
+
+    let newWorkouts = []
+
+    workouts.forEach(w => {
+      let availableWorkout = availableWorkouts.find(aw => aw.id === parseInt(w.value));
+
+      if (availableWorkout){
+        newWorkouts = [...newWorkouts, availableWorkout]
+      }
+    })
+    setSelectedWorkouts(newWorkouts.map(w => w.id))
+  }
+
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -162,7 +163,7 @@ const SetGoalPage = () => {
         </div>
         <div>
           <h3>Select additional workouts to add to goal:</h3>
-          {availableWorkouts.length > 0 ? workoutList : "No workouts"}
+          <Select ref={workoutSelection} options={workoutOptions} isMulti onChange={updateSelectedWorkouts}/>
         </div>
         <div>
           <h3>Set goal end date:</h3>
