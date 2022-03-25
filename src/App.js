@@ -16,6 +16,7 @@ import ContributorProgramPage from "./components/Contributors/ContributorProgram
 import ContributeExercisesPage from "./components/ContributeExercises/ContributeExercisesPage";
 import SetGoalPage from "./components/SetGoal/SetGoalPage";
 import GoalDetails from "./components/Goals/GoalDetails";
+import ContributorRoute from "./helpers/ContributorRoute";
 
 function App() {
  return (
@@ -64,12 +65,21 @@ function App() {
                </PrivateRoute>
              }
            />
-           <Route exact path="/programs" element={<PrivateRoute> <ProgramPage/> </PrivateRoute> }/>
+           <Route 
+           exact path="/programs" 
+           element={
+           <PrivateRoute> 
+             <ProgramPage/> 
+             </PrivateRoute> 
+            }
+            />
            <Route
              path="/workoutcontributor"
              element={
-               <PrivateRoute>
+              <PrivateRoute>
+               <ContributorRoute>
                  <ContributorWorkoutPage />
+               </ContributorRoute>
                </PrivateRoute>
               }
              />
@@ -84,8 +94,10 @@ function App() {
             <Route
              path="/programcontributor"
              element={
-               <PrivateRoute>
+              <PrivateRoute>
+               <ContributorRoute>
                  <ContributorProgramPage />
+               </ContributorRoute>
                </PrivateRoute>
              }
             />
@@ -93,7 +105,9 @@ function App() {
              path="/contribute/exercises"
              element={
                <PrivateRoute>
+               <ContributorRoute>
                  <ContributeExercisesPage />
+               </ContributorRoute>
                </PrivateRoute>
              }
            />
