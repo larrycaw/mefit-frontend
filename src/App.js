@@ -12,7 +12,7 @@ import ExercisePage from "./components/Exercises/Exercisepage"
 import PrivateRoute from "./helpers/PrivateRoute";
 import ProgramPage from "./components/Programs/ProgramPage";
 import ContributorWorkoutPage from "./components/Contributors/ContributorWorkout"
-import UpdateProfilePage from "./components/UpdateProfile/UpdateProfilePage";
+import ProfilePage from "./components/Profile/ProfilePage";
 import 'react-calendar/dist/Calendar.css';
 import ContributorProgramPage from "./components/Contributors/ContributorProgram";
 import ContributeExercisesPage from "./components/ContributeExercises/ContributeExercisesPage";
@@ -85,10 +85,10 @@ function App() {
               }
              />
              <Route
-             path="/update-profile"
+             path="/profile"
              element={
                <PrivateRoute>
-                 <UpdateProfilePage />
+                 <ProfilePage />
                </PrivateRoute>
              }
             />

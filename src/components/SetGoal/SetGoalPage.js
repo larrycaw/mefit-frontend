@@ -153,26 +153,26 @@ const SetGoalPage = () => {
 
   return (
     <AppContainer>
-      <h1 className={"display-4"}>Set a new goal:</h1>
-      <blockquote class={"blockquote"}>
+      <h1 className="display-4">Set a new goal:</h1>
+      <blockquote className="blockquote">
         Set your next fitness goal! Choose a program as a base, and add extra
         workouts to your goal (optional).
       </blockquote>
       <form onSubmit={handleSubmit}>
-        <div class={"form-group row mt-4"}>
-          <legend class="col-form-label col-sm-2 pt-0">
-            <p className={"lead"}>Base program for goal:</p>
+        <div className="form-group row mt-4">
+          <legend className="col-form-label col-sm-2 pt-0">
+            <p className="lead">Base program for goal:</p>
           </legend>
-          <div class="col-sm-10">
+          <div className="col-sm-10">
             {programList.length > 0 ? programList : "No programs"}
           </div>
         </div>
 
-        <div class={"form-group row mt-4"}>
-          <legend class="col-form-label col-sm-2 pt-0">
-            <p className={"lead"}>Additional workouts:</p>
+        <div className="form-group row mt-4">
+          <legend className="col-form-label col-sm-2 pt-0">
+            <p className="lead">Additional workouts:</p>
           </legend>
-          <div class="col-sm-10">
+          <div className="col-sm-10">
             <div style={{ width: "50%" }}>
               <Select
                 ref={workoutSelection}
@@ -184,11 +184,11 @@ const SetGoalPage = () => {
           </div>
         </div>
 
-        <div class={"form-group row mt-4"}>
-          <legend class="col-form-label col-sm-2 pt-0">
-            <p className={"lead"}>Goal end date:</p>
+        <div className="form-group row mt-4">
+          <legend className="col-form-label col-sm-2 pt-0">
+            <p className="lead">Goal end date:</p>
           </legend>
-          <div class="col-sm-10">
+          <div className="col-sm-10">
             <Calendar
               onClickDay={(newDate) => setEndDate(newDate)}
               value={endDate}
@@ -197,9 +197,9 @@ const SetGoalPage = () => {
           </div>
         </div>
 
-        <div class="form-group row">
-          <div class="col-sm-10">
-            <button type="submit" value="Submit" class="btn btn-primary m-3">
+        <div className="form-group row">
+          <div className="col-sm-10">
+            <button type="submit" value="Submit" className="btn btn-primary m-3">
               Set goal
             </button>
           </div>

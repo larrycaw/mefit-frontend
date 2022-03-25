@@ -51,7 +51,7 @@ const Navbar = () => {
 							<NavLink className="nav-link" to="/programs">Programs page</NavLink>
 						</li>
 						<li className="nav-item">
-							<NavLink className="nav-link" to="/update-profile">Profile page</NavLink>
+							<NavLink className="nav-link" to="/profile">Profile page</NavLink>
 						</li>
 						<li className="nav-item">
 							<NavLink className="nav-link" to="/set-goal">Set goal page</NavLink>
@@ -69,7 +69,7 @@ const Navbar = () => {
 						{!!keycloak.authenticated && (
 							<div className="d-flex">
 								<li style={{paddingRight: "1em"}} className="nav-item">
-									<NavLink className="nav-link d-flex" to="/update-profile">{keycloak.tokenParsed.preferred_username}</NavLink>
+									<NavLink className="nav-link d-flex" to="/profile">{keycloak.tokenParsed.preferred_username}</NavLink>
 								</li>
 
 								<button
