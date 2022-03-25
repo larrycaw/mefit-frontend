@@ -34,20 +34,34 @@ const Navbar = () => {
 							<NavLink className="nav-link" to="/">Home</NavLink>
 						</li>
 						<li className="nav-item">
-							<NavLink className="nav-link" to="/workouts">Workouts page</NavLink>
+							<NavLink className="nav-link" to="/profile">Profile</NavLink>
 						</li>
 						<li className="nav-item">
-							<NavLink className="nav-link" to="/exercises">Exercise page</NavLink>
+							<NavLink className="nav-link" to="/workouts">Workouts</NavLink>
 						</li>
 						<li className="nav-item">
-							<NavLink className="nav-link" to="/programs">Programs page</NavLink>
+							<NavLink className="nav-link" to="/exercises">Exercises</NavLink>
 						</li>
 						<li className="nav-item">
-							<NavLink className="nav-link" to="/profile">Profile page</NavLink>
+							<NavLink className="nav-link" to="/programs">Programs</NavLink>
 						</li>
 						<li className="nav-item">
-							<NavLink className="nav-link" to="/set-goal">Set goal page</NavLink>
+							<NavLink className="nav-link" to="/set-goal">Set goal</NavLink>
 						</li>
+
+						{keycloak.tokenParsed.user_role.includes("Contributor") ? 
+							<>
+							<li className="nav-item">
+								<NavLink className="nav-link" to="/programcontributor">Add/edit programs</NavLink>
+							</li>
+							<li className="nav-item">
+								<NavLink className="nav-link" to="/workoutcontributor">Add/edit workouts</NavLink>
+							</li>
+							<li className="nav-item">
+								<NavLink className="nav-link" to="/contribute/exercises">Add/edit exercises</NavLink>
+							</li
+							></>
+						: <></>}
 					</ul>
 					<ul className="navbar-nav ml-auto" style={{display: "inline-block"}}>
 						{!keycloak.authenticated && (

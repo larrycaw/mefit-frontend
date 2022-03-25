@@ -7,7 +7,7 @@ import Dashboard from "./components/Goals/Dashboard";
 import GoalPage from "./components/Goals/GoalPage";
 import WorkoutPage from "./components/Workouts/Workoutpage";
 import ExercisePage from "./components/Exercises/Exercisepage"
-import PrivateRoute from "./helpers/PrivateRoute";
+import ProtectRoute from "./helpers/ProtectRoute";
 import ProgramPage from "./components/Programs/ProgramPage";
 import ContributorWorkoutPage from "./components/Contributors/ContributorWorkout"
 import ProfilePage from "./components/Profile/ProfilePage";
@@ -23,100 +23,110 @@ function App() {
    <div>
      <ReactKeycloakProvider authClient={keycloak} initOptions={{ onLoad: 'login-required'}}>
        <BrowserRouter>
-       <Navbar />
          <Routes>
            <Route
                 path="/"
                 element={
-                    <PrivateRoute>
+                    <ProtectRoute>
+                      <Navbar />
                         <Dashboard />
-                    </PrivateRoute>
+                    </ProtectRoute>
                 }
             />
             <Route
                 path="/goals"
                 element={
-                    <PrivateRoute>
+                    <ProtectRoute>
+                      <Navbar />
                         <GoalPage />
-                    </PrivateRoute>
+                    </ProtectRoute>
                 }
             />
             <Route
                 path="/goal-details"
                 element={
-                    <PrivateRoute>
+                    <ProtectRoute>
+                      <Navbar />
                         <GoalDetails />
-                    </PrivateRoute>
+                    </ProtectRoute>
                 }
             />
           <Route
              path="/workouts"
              element={
-               <PrivateRoute>
+               <ProtectRoute>
+                 <Navbar />
                  <WorkoutPage />
-               </PrivateRoute>
+               </ProtectRoute>
              }
            />
           <Route
              path="/exercises"
              element={
-               <PrivateRoute>
+               <ProtectRoute>
+                 <Navbar />
                  <ExercisePage />
-               </PrivateRoute>
+               </ProtectRoute>
              }
            />
            <Route 
            exact path="/programs" 
            element={
-           <PrivateRoute> 
+           <ProtectRoute> 
+             <Navbar />
              <ProgramPage/> 
-             </PrivateRoute> 
+             </ProtectRoute> 
             }
             />
            <Route
              path="/workoutcontributor"
              element={
-              <PrivateRoute>
+              <ProtectRoute>
+                <Navbar />
                <ContributorRoute>
                  <ContributorWorkoutPage />
                </ContributorRoute>
-               </PrivateRoute>
+               </ProtectRoute>
               }
              />
              <Route
              path="/profile"
              element={
-               <PrivateRoute>
+               <ProtectRoute>
+                 <Navbar />
                  <ProfilePage />
-               </PrivateRoute>
+               </ProtectRoute>
              }
             />
             <Route
              path="/programcontributor"
              element={
-              <PrivateRoute>
+              <ProtectRoute>
+                <Navbar />
                <ContributorRoute>
                  <ContributorProgramPage />
                </ContributorRoute>
-               </PrivateRoute>
+               </ProtectRoute>
              }
             />
            <Route
              path="/contribute/exercises"
              element={
-               <PrivateRoute>
+               <ProtectRoute>
+                 <Navbar />
                <ContributorRoute>
                  <ContributeExercisesPage />
                </ContributorRoute>
-               </PrivateRoute>
+               </ProtectRoute>
              }
            />
            <Route
              path="/set-goal"
              element={
-               <PrivateRoute>
+               <ProtectRoute>
+                 <Navbar />
                  <SetGoalPage />
-               </PrivateRoute>
+               </ProtectRoute>
              }
            />
          </Routes>
