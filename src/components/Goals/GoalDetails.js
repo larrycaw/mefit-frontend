@@ -14,11 +14,11 @@ const GoalDetails = () => {
 	const [goals, setGoals] = useState([])
 	const [workouts, setWorkouts] = useState([])
 
-	const selection = useRef(null);
+	const selection = useRef(null)
 
-	const [selectedWorkouts, setSelectedWorkouts] = useState([]);
+	const [selectedWorkouts, setSelectedWorkouts] = useState([])
 
-	const nav = useNavigate();
+	const nav = useNavigate()
 
 	const getCurrentGoal = async (id) => {
 		await apiGetCurrentGoal(id)
@@ -44,11 +44,23 @@ const GoalDetails = () => {
 			.then(data => setProgram(data))
 	}
 
+	const checkIfUserHasGoal = async () => {
+		await apiGetCurrentGoal(keycloak.idTokenParsed.sub).then((response) => {
+			console.log(response)
+			if (response[1].status && (response[1].status === 404)) {
+				// User has current goal, redirect to dashboard
+				alert("You need to register a new goal!.");
+				nav("/set-goal");
+			}
+		});
+	};
+
 	useEffect(() => {
 		getCurrentGoal(keycloak.idTokenParsed.sub)
 		getUserGoals(keycloak.idTokenParsed.sub)
 		getAllWorkouts()
 		setSelectedWorkouts([])
+		checkIfUserHasGoal()
 	}, [])
 
 	useEffect(() => {
@@ -70,27 +82,10 @@ const GoalDetails = () => {
 		}
 	}
 
-	const achievedGoals = () => {
-		let programIdsAndDates = [];
-		if(goals.length > 0) {
-			for(let i = 0; i < goals.length; i++) {
-				if(goals[i].achieved === true) {
-					let achievedProgram = getProgram(goals[i].programId)
-					let date = new Date(goals[i].programEndDate);
-					programIdsAndDates.push(achievedProgram.name)
-					programIdsAndDates.push(date.toLocaleDateString("no-NO"))
-				}
-			}
-		}
-		
-		if(programIdsAndDates.length > 0){
-			return programIdsAndDates
-		} else return "You have no previous goals :("
-	}
-
 	const workoutsLeft = () => {
 		let incompletedWorkoutGoals = []
-		let workoutsLeft = [];
+		let workoutsLeft = []
+
 		if(currentGoal.workoutGoals !== undefined) {
 			for(const workoutGoal of currentGoal.workoutGoals) {
 				if(workoutGoal.completed === false) {
@@ -98,6 +93,7 @@ const GoalDetails = () => {
 				}
 			}
 		}
+
 		if(workouts.length > 0) {
 			for(const workout of workouts) {
 				let test = incompletedWorkoutGoals.find(w => parseInt(w.workoutId) === workout.id)
@@ -108,11 +104,12 @@ const GoalDetails = () => {
 		}
 
 		let workoutOptions = workoutsLeft.map((workout) => {
-			// console.log(workout)
 			return {value: workout.id, label: workout.name}
 		})
-		return workoutOptions;
+		
+		return workoutOptions
 	}
+	
 	
 	let updateSelection = (workouts) => {
 	
@@ -129,12 +126,8 @@ const GoalDetails = () => {
 		setSelectedWorkouts(completedWorkouts.map((w) => w.workoutId))
 	}
 
-	if(currentGoal.programId !== undefined && goals.length > 0 && workouts.length > 0) {
-
-	}
-
 	const handleSubmit = (event) => {
-		event.preventDefault();
+		event.preventDefault()
 		console.log(selectedWorkouts)
 
 		if(selectedWorkouts.length > 0) {
@@ -167,8 +160,6 @@ const GoalDetails = () => {
 					Mark as completed
 				</button>
 			</form>
-			<h2>Previously achieved goals with dates</h2>
-			<p>{ achievedGoals() }</p>
 		</AppContainer>
 	)
 }
