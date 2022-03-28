@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AppContainer } from '../../helpers/AppContainer'
 import keycloak from "../../Keycloak"
-import { apiGetCurrentGoal, apiGetUserGoals } from '../../api/GoalsAPI.js'
+import { apiGetCurrentGoal, apiGetUserGoals, apiSetGoalAchieved } from '../../api/GoalsAPI.js'
 import { apiFetchAllWorkouts, apiFetchWorkout } from '../../api/WorkoutAPI'
 import { apiFetchProgram } from "../../api/ProgramAPI"
 import { apiUpdateGoalWorkout } from '../../api/GoalWorkoutAPI'
@@ -14,11 +14,11 @@ const GoalDetails = () => {
 	const [goals, setGoals] = useState([])
 	const [workouts, setWorkouts] = useState([])
 
-	const selection = useRef(null);
+	const selection = useRef(null)
 
-	const [selectedWorkouts, setSelectedWorkouts] = useState([]);
+	const [selectedWorkouts, setSelectedWorkouts] = useState([])
 
-	const nav = useNavigate();
+	const nav = useNavigate()
 
 	const getCurrentGoal = async (id) => {
 		await apiGetCurrentGoal(id)
@@ -42,6 +42,12 @@ const GoalDetails = () => {
 		await apiFetchProgram(id)
 			.then(response => response[1])
 			.then(data => setProgram(data))
+	}
+
+	const isAchieved = () => {
+		if(currentGoal.workoutGoals !== undefined) {
+
+		}
 	}
 
 	useEffect(() => {
@@ -71,12 +77,13 @@ const GoalDetails = () => {
 	}
 
 	const achievedGoals = () => {
-		let programIdsAndDates = [];
+		let programIdsAndDates = []
+
 		if(goals.length > 0) {
 			for(let i = 0; i < goals.length; i++) {
 				if(goals[i].achieved === true) {
 					let achievedProgram = getProgram(goals[i].programId)
-					let date = new Date(goals[i].programEndDate);
+					let date = new Date(goals[i].programEndDate)
 					programIdsAndDates.push(achievedProgram.name)
 					programIdsAndDates.push(date.toLocaleDateString("no-NO"))
 				}
@@ -90,7 +97,8 @@ const GoalDetails = () => {
 
 	const workoutsLeft = () => {
 		let incompletedWorkoutGoals = []
-		let workoutsLeft = [];
+		let workoutsLeft = []
+
 		if(currentGoal.workoutGoals !== undefined) {
 			for(const workoutGoal of currentGoal.workoutGoals) {
 				if(workoutGoal.completed === false) {
@@ -98,6 +106,7 @@ const GoalDetails = () => {
 				}
 			}
 		}
+
 		if(workouts.length > 0) {
 			for(const workout of workouts) {
 				let test = incompletedWorkoutGoals.find(w => parseInt(w.workoutId) === workout.id)
@@ -108,11 +117,12 @@ const GoalDetails = () => {
 		}
 
 		let workoutOptions = workoutsLeft.map((workout) => {
-			// console.log(workout)
 			return {value: workout.id, label: workout.name}
 		})
-		return workoutOptions;
+		
+		return workoutOptions
 	}
+	
 	
 	let updateSelection = (workouts) => {
 	
@@ -134,7 +144,7 @@ const GoalDetails = () => {
 	}
 
 	const handleSubmit = (event) => {
-		event.preventDefault();
+		event.preventDefault()
 		console.log(selectedWorkouts)
 
 		if(selectedWorkouts.length > 0) {
