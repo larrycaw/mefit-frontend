@@ -4,6 +4,7 @@ import keycloak from "../../Keycloak"
 import { AppContainer } from '../../helpers/AppContainer'
 import { apiGetCurrentGoal, apiGetUserGoals, apiSetGoalAchieved } from '../../api/GoalsAPI.js'
 import { apiFetchAllWorkouts } from '../../api/WorkoutAPI'
+import { apiFetchAllPrograms } from '../../api/ProgramAPI'
 
 const GoalPage = () => {
 
@@ -13,6 +14,7 @@ const GoalPage = () => {
 	const [goals, setGoals] = useState([])
 	const [currentGoal, setCurrentGoal] = useState({})
 	const [workouts, setWorkouts] = useState([])
+	let [programs, setPrograms] = useState([])
 
 	const nav = useNavigate()
 	
@@ -33,13 +35,40 @@ const GoalPage = () => {
 			.then(response => response[1])
 			.then(data => setWorkouts(data))
 	}
+
+	const getPrograms = async () => {
+		await apiFetchAllPrograms()
+		.then (result => result[1])
+		.then((data) => {
+		  setPrograms(data);
+		})
+	  }
 	
 	useEffect(() => {
 		getCurrentGoal(keycloak.idTokenParsed.sub)
 		getUserGoals(keycloak.idTokenParsed.sub)
 		getAllWorkouts()
+		getPrograms()
 	}, [])
 	
+	const achievedGoals = () => {
+		let programIdsAndDates = []
+
+		if(goals.length > 0 && programs.length > 0) {
+			for(let i = 0; i < goals.length; i++) {
+				if(goals[i].achieved === true) {
+					let programName = programs.find(p => p.id === parseInt(goals[i].programId)).name;
+					let date = new Date(goals[i].programEndDate)
+					programIdsAndDates.push(<li><b><i>{programName}</i> </b>({date.toLocaleDateString("no-NO")})</li>)
+				}
+			}
+		}
+		
+		if(programIdsAndDates.length > 0){
+			return programIdsAndDates
+		} else return "You have no previous goals :("
+	}
+
 	const date = () => {
 		if(currentGoal.programEndDate !== undefined) {
 			let endDate = new Date(currentGoal.programEndDate)
@@ -134,6 +163,8 @@ const GoalPage = () => {
 						type="button" className="btn btn-primary">
 						My goal
 					</button>
+					<h2>Previously achieved goals with dates</h2>
+					<p>{ achievedGoals() }</p>
 				</main>
 			</AppContainer>
 		)
@@ -148,6 +179,8 @@ const GoalPage = () => {
 						type="button" className="btn btn-primary">
 						New goal
 					</button>
+					<h2>Previously achieved goals with dates</h2>
+					<p>{ achievedGoals() }</p>
 				</main>
 			</AppContainer>
 		  )

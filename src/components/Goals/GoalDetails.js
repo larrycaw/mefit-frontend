@@ -44,12 +44,6 @@ const GoalDetails = () => {
 			.then(data => setProgram(data))
 	}
 
-	const isAchieved = () => {
-		if(currentGoal.workoutGoals !== undefined) {
-
-		}
-	}
-
 	const checkIfUserHasGoal = async () => {
 		await apiGetCurrentGoal(keycloak.idTokenParsed.sub).then((response) => {
 			console.log(response)
@@ -86,25 +80,6 @@ const GoalDetails = () => {
 		if(program.name !== undefined) {
 			return program.name
 		}
-	}
-
-	const achievedGoals = () => {
-		let programIdsAndDates = []
-
-		if(goals.length > 0) {
-			for(let i = 0; i < goals.length; i++) {
-				if(goals[i].achieved === true) {
-					// let achievedProgram = programName(goals[i].programId)
-					let date = new Date(goals[i].programEndDate)
-					// programIdsAndDates.push(achievedProgram.name)
-					programIdsAndDates.push(date.toLocaleDateString("no-NO"))
-				}
-			}
-		}
-		
-		if(programIdsAndDates.length > 0){
-			return programIdsAndDates
-		} else return "You have no previous goals :("
 	}
 
 	const workoutsLeft = () => {
@@ -185,8 +160,6 @@ const GoalDetails = () => {
 					Mark as completed
 				</button>
 			</form>
-			<h2>Previously achieved goals with dates</h2>
-			<p>{ achievedGoals() }</p>
 		</AppContainer>
 	)
 }
