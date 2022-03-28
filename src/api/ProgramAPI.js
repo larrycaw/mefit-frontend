@@ -19,11 +19,30 @@ export async function apiFetchAllPrograms() {
     }
 }
 
+export async function apiFetchProgram(id) {
+
+    try {
+        const response = await fetch(`${API_URL}api/MFProgram`, {
+            headers: { 
+                "id": id,
+                "Authorization": `Bearer ${keycloak.token}`
+            },
+          })
+        const data = await response.json()
+
+        return [null, data]
+    }
+    catch (e){
+        return[e.message, []]
+    }
+}
+
 export async function apiCreateProgram(programName, programCategory) {
     const requestOptions = {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            "Authorization": `Bearer ${keycloak.token}`
         },
         body: JSON.stringify({
             "name": programName,
@@ -47,7 +66,8 @@ export async function apiUpdateProgram(id, programName, programCategory) {
         method: 'PUT',
         headers: {
             'id': id,
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            "Authorization": `Bearer ${keycloak.token}`
         },
         body: JSON.stringify({
             "id": id,
@@ -73,7 +93,8 @@ export async function apiAssignWorkout(id, workoutIDs) {
         method: 'POST',
         headers: {
             'id': id,
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            "Authorization": `Bearer ${keycloak.token}`
         },
         body: JSON.stringify(workoutIDs)
      

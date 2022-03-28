@@ -1,16 +1,16 @@
 import { API_URL } from "../API"
-import keycloak from "keycloak-js"
+import keycloak from "../Keycloak"
 
 export async function apiGetCurrentGoal(id) {
-    const requestOptions = {
-        headers: {
-            'userId': id,
-            'Authorization': `Bearer ${keycloak.token}`
-        }
-    }
     
     try {
-        const response = await fetch(`${API_URL}api/Goals/currentGoal`, requestOptions)
+        const response = await fetch(`${API_URL}api/Goals/currentGoal`, {
+            headers: { 
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${keycloak.token}`,
+                'userId': keycloak.idTokenParsed.sub
+            },
+          });
         const data = await response.json()
 
         return [null, data]
@@ -22,15 +22,16 @@ export async function apiGetCurrentGoal(id) {
 
 
 export async function apiGetGoalById(id) {
-    const requestOptions = {
-        headers: {
-            'userId': id,
-            'Authorization': `Bearer ${keycloak.token}`
-        }
-    }
-
+    
     try {
-        const response = await fetch(`${API_URL}api/Goals/user`, requestOptions)
+
+        const response = await fetch(`${API_URL}api/Goals/user`, {
+            headers: { 
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${keycloak.token}`,
+                'id': id
+            },
+          })
         const data = await response.json()
 
         return [null, data]
@@ -41,15 +42,15 @@ export async function apiGetGoalById(id) {
 }
 
 export async function apiGetUserGoals(id) {
-    const requestOptions = {
-        headers: {
-            'userId': id,
-            'Authorization': `Bearer ${keycloak.token}`
-        }
-    }
 
     try {
-        const response = await fetch(`${API_URL}api/Goals/user`, requestOptions)
+        const response = await fetch(`${API_URL}api/Goals/user`, {
+            headers: { 
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${keycloak.token}`,
+                'UserId': keycloak.idTokenParsed.sub
+            },
+        })
         const data = await response.json()
 
         return [null, data]
@@ -59,3 +60,66 @@ export async function apiGetUserGoals(id) {
     }
 }
 
+export async function apiCreateUserGoal(newGoal, userId){
+    // Creates a new goal for a user, then assigns workouts to the goal
+
+    const requestOptions = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${keycloak.token}`
+        },
+        body: JSON.stringify({
+            "programEndDate": newGoal.endDate.toJSON(),
+            "programId": newGoal.program,
+            "profileId": keycloak.idTokenParsed.sub
+        })
+    }
+
+    try {
+        const response = await fetch(`${API_URL}api/Goals`, requestOptions)
+
+        if (response.status === 409){
+            return ["You already have an active goal", []]
+        }
+
+        const data = await response.json()
+
+        for (const workoutId of newGoal.workouts) {
+            await apiAssignWorkoutsToGoal(data.id, workoutId)
+        }
+        return [null, []]
+    }
+    catch(e){
+        return [e.message, []]
+    }
+}
+
+
+export async function apiAssignWorkoutsToGoal (goalId, workoutId){
+    // Assigns workout to existing goal
+
+    const requestOptions = {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${keycloak.token}`,
+            'GoalID': goalId
+        },
+        body: JSON.stringify({
+            "workoutId":  workoutId,
+            "goalId": goalId,
+            "completed": false
+        })
+    }
+
+    try {
+        const response = await fetch(`${API_URL}api/GoalWorkout`, requestOptions)
+        const data = await response.json()
+
+        return [null, data]
+    }
+    catch(e){
+        return [e.message, []]
+    }
+}
