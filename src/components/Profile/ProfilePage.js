@@ -85,6 +85,16 @@ const ProfilePage = () => {
             <p>{user.height? `${user.height} cm` : "no weight recorded"}</p>
           </div>
         </div>
+        {user.weight !== undefined && user.height !== undefined && 
+        <div className="form-group row mt-4">
+        <label className="col-form-label col-sm-2 pt-0">
+            <p className="lead">BMI:</p>
+            </label>
+        <div className="col-sm-10">
+          <p>{bmi(user.height, user.weight).bmi} ({bmi(user.height, user.weight).cat})</p>
+        </div>
+      </div>
+        }
         <div className="form-group row mt-4">
           <label className="col-form-label col-sm-2 pt-0">
               <p className="lead">Medical conditions:</p>
