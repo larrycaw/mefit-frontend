@@ -4,8 +4,6 @@ import ProgramList from "./ProgramList";
 import SelectedProgram from "./SelectedProgram";
 import AppContainer from "../../helpers/AppContainer";
 import 'bootstrap/dist/css/bootstrap.css';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
 
 const ProgramPage = () => {
 

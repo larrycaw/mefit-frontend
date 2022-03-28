@@ -1,7 +1,6 @@
 import { React, useState, useEffect } from "react";
-import AppContainer from "../../helpers/AppContainer";
-import {apiCreateProgram, apiFetchAllPrograms, apiUpdateProgram, apiAssignWorkout } from '../../api/ProgramAPI';
-import { apiAssignSetByExercise, apiCreateWorkout, apiFetchAllWorkouts, apiUpdateWorkout } from '../../api/WorkoutAPI';
+import { apiFetchAllPrograms, apiAssignWorkout } from '../../api/ProgramAPI';
+import { apiFetchAllWorkouts } from '../../api/WorkoutAPI';
 
 
 const AddWorkoutToProgram = () => {

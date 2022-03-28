@@ -1,9 +1,6 @@
-import { React, useEffect, useRef, useState } from 'react';
-import keycloak from '../../Keycloak';
-import { APIURL } from "../../API.js";
-import { apiAssignSetByExercise, apiCreateWorkout, apiFetchAllWorkouts, apiUpdateWorkout } from '../../api/WorkoutAPI';
-import { apiCreateProgram } from '../../api/ProgramAPI';
-import { apiFetchAllPrograms, apiUpdateProgram, apiAssignWorkout } from '../../api/ProgramAPI';
+import { React, useEffect, useState } from 'react';
+import { apiFetchAllWorkouts } from '../../api/WorkoutAPI';
+import { apiFetchAllPrograms, apiAssignWorkout } from '../../api/ProgramAPI';
 import AppContainer from "../../helpers/AppContainer";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';

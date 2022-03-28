@@ -1,5 +1,5 @@
-import { React, useEffect, useRef, useState } from 'react';
-import {apiCreateProgram, apiFetchAllPrograms, apiUpdateProgram, apiAssignWorkout } from '../../api/ProgramAPI';
+import { React, useEffect, useState } from 'react';
+import { apiFetchAllPrograms, apiUpdateProgram } from '../../api/ProgramAPI';
 
 
 const EditProgram = (props) => {

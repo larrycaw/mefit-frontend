@@ -1,7 +1,6 @@
 import { React, useState, useEffect } from "react";
-import AppContainer from "../../helpers/AppContainer";
-import { apiAssignSetByExercise, apiCreateWorkout, apiFetchAllWorkouts, apiUpdateWorkout, apiAssignSetToWorkout } from '../../api/WorkoutAPI';
-import { apiGetExercisesById, apiFetchAllExercises } from '../../api/ExerciseAPI';
+import { apiFetchAllWorkouts, apiAssignSetToWorkout } from '../../api/WorkoutAPI';
+import { apiFetchAllExercises } from '../../api/ExerciseAPI';
 import { apiCreateSet } from '../../api/SetAPI'
 
 

@@ -1,8 +1,5 @@
-import { React, useEffect, useRef, useState } from 'react';
-import keycloak from '../../Keycloak';
-import { API_URL } from "../../API.js";
-import { apiFetchAllSets, apiGetSetById } from '../../api/SetAPI';
-import { apiGetExercisesById, apiFetchAllExercises } from '../../api/ExerciseAPI';
+import { React, useEffect,useState } from 'react';
+import { apiFetchAllExercises } from '../../api/ExerciseAPI';
 import AppContainer from '../../helpers/AppContainer';
 
 

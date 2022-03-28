@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import AppContainer from '../../helpers/AppContainer'
 import CalendarComponent from "./CalendarComponent"
 import GoalPage from "./GoalPage"
