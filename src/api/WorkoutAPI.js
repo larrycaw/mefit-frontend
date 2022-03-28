@@ -123,7 +123,6 @@ export async function apiAssignSetToWorkout(id, setIds) {
         },
         body: JSON.stringify(setIds)
     }
-    // console.log(id, setIds)
     console.log(requestOptions.body)
 
     try {

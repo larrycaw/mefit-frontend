@@ -50,37 +50,39 @@ const ExerciseForm = (props) => {
         props.getNewExercises()
     }
 
-    return (<>
-        <form onSubmit={handleSubmit}>
-            <label>
-                Name:
-                <input type="text" value={name} onChange={(e) => setName(e.target.value)}/>
-            </label>
-            <br/>
-            <label>
-                Description:
-                <input type="text" value={description} onChange={(e) => setDescription(e.target.value)}/>
-            </label>
-            <br/>
-            <label>
-                Target muscle group:
-                <input type="text" value={targetMuscleGroup} onChange={(e) => setTargetMuscleGroup(e.target.value)}/>
-            </label>
-            <br/>
-            <label>
-                Image URL:
-                <input type="text" value={imageURL} onChange={(e) => setImageURL(e.target.value)}/>
-            </label>
-            <br/>
-            <label>
-                Video URL:
-                <input type="text" value={videoURL} onChange={(e) => setVideoURL(e.target.value)}/>
-            </label>
-            <br/>
-            <button type="submit" value="Submit">{exerciseIsSelected()? "Update exercise" : "Add new exercise"}</button>
-        
-        </form>
-        </>)
+    return (
+        <div className="form-group col-md-5">
+            <form onSubmit={handleSubmit}>
+                <label>
+                    Name:
+                </label>
+                <input type="text" value={name} onChange={(e) => setName(e.target.value)} className="form-control" id="inputName"/>
+                <br/>
+                <label>
+                    Description:
+                </label>
+                <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} className="form-control" id="inputDescription"/>
+                <br/>
+                <label>
+                    Target muscle group:
+                </label>
+                <input type="text" value={targetMuscleGroup} onChange={(e) => setTargetMuscleGroup(e.target.value)} className="form-control" id="inputMuscleGroup"/>
+                <br/>
+                <label>
+                    Image URL:
+                </label>
+                <input type="text" value={imageURL} onChange={(e) => setImageURL(e.target.value)} className="form-control" id="inputImage"/>
+                <br/>
+                <label>
+                    Video URL:
+                </label>
+                <input type="text" value={videoURL} onChange={(e) => setVideoURL(e.target.value)} className="form-control" id="inputVideo"/>
+                <br/>
+                <button type="submit" value="Submit" className="btn btn-primary">{exerciseIsSelected()? "Update exercise" : "Add new exercise"}</button>
+            </form>
+
+        </div>
+    )
 };
 
 export default ExerciseForm;
