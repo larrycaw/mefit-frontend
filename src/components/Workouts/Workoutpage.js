@@ -1,15 +1,11 @@
-import { React, useEffect, useRef, useState } from 'react';
-import keycloak from '../../Keycloak';
-import { API_URL } from "../../API.js";
+import { React, useEffect, useState } from 'react';
 import { apiFetchAllWorkouts, apiGetExercisesByWorkoutId } from '../../api/WorkoutAPI';
-import { apiFetchAllSets, apiGetSetById } from '../../api/SetAPI';
-import { apiGetExercisesById } from '../../api/ExerciseAPI';
 import AppContainer from "../../helpers/AppContainer";
 
 
 const Workout = () => {
     const [workouts, setWorkouts] = useState([])
-    const [info, setInfo] = useState(["Click on a program for more info"])
+    const [info, setInfo] = useState([""])
     const [exercises, setExercises] = useState([])
     const [workoutId, setWorkoutId] = useState([])
 
@@ -48,13 +44,17 @@ const Workout = () => {
 
     const listInfo = async (event, workout) => {
         let workoutInfo = []
-        workoutInfo.push(`Type: ${workout.type} ##`)
-        workoutInfo.push(`Id: ${workout.id} ##`)
+        workoutInfo.push(`Name: ${workout.name}`)
+        workoutInfo.push(`Type: ${workout.type}`)
 
         exercises.forEach(exercise => {
             if(exercise.key == workout.id) {
                 exercise.value.forEach(item => {
-                    workoutInfo.push(`Exercise: Name: ${item.name}, Description ${item.description}, Targeted muscle group: ${item.targetMuscleGroup}  ##`)
+                    workoutInfo.push(`####`)
+                    workoutInfo.push("Exercise:")
+                    workoutInfo.push(`Name: ${item.name}`)
+                    workoutInfo.push(`Description ${item.description}`)
+                    workoutInfo.push(`Targeted muscle group: ${item.targetMuscleGroup}`)
                 });
                 
             }
@@ -66,11 +66,29 @@ const Workout = () => {
     return (
         <AppContainer>
             <h1 className="text-black text-4xl">Welcome to the Workout Page.</h1>
-            <h2>All registered workouts:</h2>
-            {workouts.map((workout, i) => <button key={i} onClick={(event) => listInfo(event, workout)}>{workout.name}</button>)}
-            <div>
-                {info}
-            </div>
+            <AppContainer>
+                <h2>All registered workouts:</h2>
+                <div class="row">
+                    <div class="col-4">
+                        <div class="list-group" id="list-tab" role="tablist" >
+                            {workouts.map((workout, i) => 
+                                <a class="list-group-item list-group-item-action" style={{background: '#7D9FE2'}} data-toggle="list" role="tab" onClick={(event) => listInfo(event, workout)}>{workout.name}</a>
+                            )}
+
+                        </div>
+                    </div>
+                    <div class="col-8">
+                        <div class="tab-content" id='nav-tabContent'>
+                            {info.map((inf, i) => 
+                                <div className='tab-pane fade show active'>
+                                    {inf}
+                                </div>
+                            )}
+                        </div>
+                    </div>
+
+                </div>
+            </AppContainer>
         </AppContainer>
     );
 };

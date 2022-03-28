@@ -2,8 +2,8 @@ import React, { useEffect, useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AppContainer } from '../../helpers/AppContainer'
 import keycloak from "../../Keycloak"
-import { apiGetCurrentGoal, apiGetUserGoals, apiSetGoalAchieved } from '../../api/GoalsAPI.js'
-import { apiFetchAllWorkouts, apiFetchWorkout } from '../../api/WorkoutAPI'
+import { apiGetCurrentGoal, apiGetUserGoals } from '../../api/GoalsAPI.js'
+import { apiFetchAllWorkouts } from '../../api/WorkoutAPI'
 import { apiFetchProgram } from "../../api/ProgramAPI"
 import { apiUpdateGoalWorkout } from '../../api/GoalWorkoutAPI'
 import Select from "react-select"

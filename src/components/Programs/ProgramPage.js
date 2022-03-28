@@ -3,6 +3,7 @@ import { apiFetchAllPrograms } from "../../api/ProgramAPI";
 import ProgramList from "./ProgramList";
 import SelectedProgram from "./SelectedProgram";
 import AppContainer from "../../helpers/AppContainer";
+import 'bootstrap/dist/css/bootstrap.css';
 
 const ProgramPage = () => {
 
@@ -25,11 +26,13 @@ const ProgramPage = () => {
     setSelectedProgram(programs.find(p => p.id === programId))
   }
 
-  return <AppContainer>
-  <SelectedProgram program={selectedProgram}/>
-  <br/><br/>
-  <ProgramList programs={programs} handleProgramSelect={handleProgramSelect}/>
-  </AppContainer>;
+  return (
+    <AppContainer>
+      <br/><br/>
+      <ProgramList programs={programs} handleProgramSelect={handleProgramSelect}/>
+      <SelectedProgram program={selectedProgram}/>
+    </AppContainer>
+  ) 
 };
 
 export default ProgramPage;
