@@ -11,10 +11,10 @@ import WorkoutPage from "./components/Workouts/Workoutpage";
 import ExercisePage from "./components/Exercises/Exercisepage"
 import PrivateRoute from "./helpers/PrivateRoute";
 import ProgramPage from "./components/Programs/ProgramPage";
-import ContributorWorkoutPage from "./components/Contributors/ContributorWorkout"
+import ContributorWorkoutPage from "./components/ContributeWorkouts/ContributorWorkout"
 import UpdateProfilePage from "./components/UpdateProfile/UpdateProfilePage";
 import 'react-calendar/dist/Calendar.css';
-import ContributorProgramPage from "./components/Contributors/ContributorProgram";
+import ContributorProgramPage from "./components/ContributePrograms/ContributorProgram";
 import ContributeExercisesPage from "./components/ContributeExercises/ContributeExercisesPage";
 import SetGoalPage from "./components/SetGoal/SetGoalPage";
 
