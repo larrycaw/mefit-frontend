@@ -100,7 +100,7 @@ const GoalPage = () => {
 	
 	useEffect(() => {
 		setAchievedIfWorkoutsComplete();
-	})
+	}, [workouts])
 
 	if(currentGoal.programId !== undefined && goals.length > 0 && workouts.length > 0) {
 		console.log(currentGoal)

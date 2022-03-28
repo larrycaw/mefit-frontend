@@ -50,11 +50,23 @@ const GoalDetails = () => {
 		}
 	}
 
+	const checkIfUserHasGoal = async () => {
+		await apiGetCurrentGoal(keycloak.idTokenParsed.sub).then((response) => {
+			console.log(response)
+			if (response[1].status && (response[1].status === 404)) {
+				// User has current goal, redirect to dashboard
+				alert("You need to register a new goal!.");
+				nav("/set-goal");
+			}
+		});
+	};
+
 	useEffect(() => {
 		getCurrentGoal(keycloak.idTokenParsed.sub)
 		getUserGoals(keycloak.idTokenParsed.sub)
 		getAllWorkouts()
 		setSelectedWorkouts([])
+		checkIfUserHasGoal()
 	}, [])
 
 	useEffect(() => {
@@ -82,9 +94,9 @@ const GoalDetails = () => {
 		if(goals.length > 0) {
 			for(let i = 0; i < goals.length; i++) {
 				if(goals[i].achieved === true) {
-					let achievedProgram = getProgram(goals[i].programId)
+					// let achievedProgram = programName(goals[i].programId)
 					let date = new Date(goals[i].programEndDate)
-					programIdsAndDates.push(achievedProgram.name)
+					// programIdsAndDates.push(achievedProgram.name)
 					programIdsAndDates.push(date.toLocaleDateString("no-NO"))
 				}
 			}
@@ -137,10 +149,6 @@ const GoalDetails = () => {
 		})
 
 		setSelectedWorkouts(completedWorkouts.map((w) => w.workoutId))
-	}
-
-	if(currentGoal.programId !== undefined && goals.length > 0 && workouts.length > 0) {
-
 	}
 
 	const handleSubmit = (event) => {
