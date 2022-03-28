@@ -3,8 +3,6 @@ import keycloak from "../Keycloak"
 
 export async function apiFetchAllExercises() {
 
-  console.log(keycloak.tokenParsed)
-
     const requestOptions = {
       headers: {
           'Content-Type': 'application/json',
