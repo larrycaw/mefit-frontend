@@ -95,6 +95,32 @@ export async function apiCreateUserGoal(newGoal, userId){
     }
 }
 
+export async function apiSetGoalAchieved (currentGoal) {
+    const requestOptions = {
+        method: "PUT",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${keycloak.token}`,
+            'goalID': currentGoal.workoutGoals[0].goalId
+        },
+        body: JSON.stringify({
+            "id":  currentGoal.workoutGoals[0].goalId,
+            "programEndDate": currentGoal.programEndDate,
+            "achieved": true,
+            "profileId": keycloak.idTokenParsed.sub,
+            "programId": currentGoal.programId
+        })
+    }
+
+    try {
+        await fetch(`${API_URL}api/Goals/updateGoal`, requestOptions)
+        return [null, []]
+    }
+    catch(e){
+        return [e.message, []]
+    }
+}
+
 
 export async function apiAssignWorkoutsToGoal (goalId, workoutId){
     // Assigns workout to existing goal
