@@ -8,16 +8,19 @@ const CreateNewWorkout = (props) => {
     const [workoutName, setName] = useState("")
     const [workoutType, setType] = useState("")
 
-
+    // Handle submit of form, creates a new workout
     const handleSubmit = (event) => {
         apiCreateWorkout(workoutName, workoutType)
         alert("A new workout is created")
         event.preventDefault()
     }
 
+    // Handle change of name (new name)
     const handleChangeName = (event) => {
         setName(event.target.value)
     }
+
+    // Handle chang eof type (new type)
     const handleChangeType = (event) => {
         setType(event.target.value)
     }
