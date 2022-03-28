@@ -122,6 +122,7 @@ const GoalPage = () => {
 						console.error(response[0])
 					} else {
 						console.log(response[1])
+						getCurrentGoal(keycloak.idTokenParsed.sub)
 					}
 				})
 		}
