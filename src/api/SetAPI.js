@@ -1,4 +1,3 @@
-// const apiURL = "https://mefit.azurewebsites.net/api"
 import { API_URL } from "../API"
 import keycloak from "../Keycloak";
 
