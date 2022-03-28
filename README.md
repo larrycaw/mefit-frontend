@@ -4,7 +4,14 @@ MeFit is an application built for managing workout goals. Regular users of the a
 
 This repository contains the frontend of the application, which is created in React using Keycloak for user authentication. Backend can be found [here](https://gitlab.com/g5453/backend).
 
-## Deployed using Heroku with continous deployment
+##### Table of Contents  
+[Deployment](##Deployment)  
+[Install](##Install)
+[Usage](##Usage)
+[Maintainers](##Maintainers)
+
+## Deployment
+Deployed to Heroku with continous deployment.
 
 [MeFit Heroku App](https://me-fit-noroff.herokuapp.com/)
 
