@@ -22,7 +22,7 @@ export async function apiGetCurrentGoal(id) {
 
 
 export async function apiGetGoalById(id) {
-    // GET GOAL BY GOAL ID
+    
     try {
 
         const response = await fetch(`${API_URL}api/Goals/user`, {
@@ -50,8 +50,7 @@ export async function apiGetUserGoals(id) {
                 "Authorization": `Bearer ${keycloak.token}`,
                 'UserId': keycloak.idTokenParsed.sub
             },
-          })
-          console.log(response)
+        })
         const data = await response.json()
 
         return [null, data]
