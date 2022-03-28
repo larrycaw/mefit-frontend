@@ -57,6 +57,8 @@ export const profileMiddleware =
           console.error(e);
           dispatch(profileResetAction())
         });
+
+
     } else if (action.type === ACTION_PROFILE_FETCH) {
       // Fetches profile from database. Creates a new profile if it does not exist
 
@@ -72,7 +74,7 @@ export const profileMiddleware =
         .then((response) => response.json())
         .then((result) => {
           if (result.status === 404) {
-            console.log("Profile does not exist. Creating a new one.");
+            // Profile does not exist -> creating a new one
             dispatch(profileCreateAction({ id: action.payload }));
           } else dispatch(profileSetAction(result));
         })
@@ -80,6 +82,8 @@ export const profileMiddleware =
           console.error(e);
           dispatch(profileResetAction())
         });
+
+        
     } else if (action.type === ACTION_PROFILE_UPDATE) {
       // Update profile in database
 

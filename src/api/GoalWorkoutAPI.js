@@ -2,6 +2,7 @@ import { API_URL } from "../API"
 import keycloak from "../Keycloak"
 
 export async function apiUpdateGoalWorkout(goalId, workoutId) {
+    // Updates a workout belonging to a goal to "complete".
     const requestOptions = {
         method: 'PUT',
         headers: {
