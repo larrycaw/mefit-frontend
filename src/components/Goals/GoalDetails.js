@@ -18,6 +18,8 @@ const GoalDetails = () => {
 
 	const [selectedWorkouts, setSelectedWorkouts] = useState([]);
 
+	const nav = useNavigate();
+
 	const getCurrentGoal = async (id) => {
 		await apiGetCurrentGoal(id)
 			.then(response => response[1])
@@ -55,7 +57,6 @@ const GoalDetails = () => {
 		}	
 	}, [currentGoal])
 	
-	
 	const date = () => {
 		if(currentGoal.programEndDate !== undefined) {
 			let endDate = new Date(currentGoal.programEndDate)
@@ -78,7 +79,7 @@ const GoalDetails = () => {
 					let date = new Date(goals[i].programEndDate);
 					programIdsAndDates.push(achievedProgram.name)
 					programIdsAndDates.push(date.toLocaleDateString("no-NO"))
-				} 
+				}
 			}
 		}
 		
@@ -88,24 +89,29 @@ const GoalDetails = () => {
 	}
 
 	const workoutsLeft = () => {
-		let completedWorkoutGoals = []
+		let incompletedWorkoutGoals = []
 		let workoutsLeft = [];
 		if(currentGoal.workoutGoals !== undefined) {
 			for(const workoutGoal of currentGoal.workoutGoals) {
 				if(workoutGoal.completed === false) {
-					completedWorkoutGoals.push(workoutGoal)
+					incompletedWorkoutGoals.push(workoutGoal)
 				}
 			}
 		}
 		if(workouts.length > 0) {
 			for(const workout of workouts) {
-				if(completedWorkoutGoals.includes(workout.id)) {
-					console.log("asd") // Stops here for some reason
-					workoutsLeft.push(workout.name)
+				let test = incompletedWorkoutGoals.find(w => parseInt(w.workoutId) === workout.id)
+				if(test) {
+					workoutsLeft.push(workout)
 				}
 			}
 		}
-		return workoutsLeft;
+
+		let workoutOptions = workoutsLeft.map((workout) => {
+			// console.log(workout)
+			return {value: workout.id, label: workout.name}
+		})
+		return workoutOptions;
 	}
 	
 	let updateSelection = (workouts) => {
@@ -113,33 +119,27 @@ const GoalDetails = () => {
 		let completedWorkouts = []
 		
 		workouts.forEach(w => {
-			let currentWorkouts = currentGoal.workoutGoals.find(cw => cw.id === parseInt(w.value))
+			let currentWorkouts = currentGoal.workoutGoals.find(cw => cw.workoutId === parseInt(w.value))
 
 			if(currentWorkouts){
 				completedWorkouts = [...completedWorkouts, currentWorkouts]
 			}
 		})
 
-		setSelectedWorkouts(completedWorkouts.map((w) => w.id))
+		setSelectedWorkouts(completedWorkouts.map((w) => w.workoutId))
 	}
 
 	if(currentGoal.programId !== undefined && goals.length > 0 && workouts.length > 0) {
 
-		// if(program.name !== undefined) {
-		// 	console.log(program)
-		// }
-
-		console.log(currentGoal)
-		console.log(workouts)
-		console.log(workoutsLeft())
 	}
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
+		console.log(selectedWorkouts)
 
 		if(selectedWorkouts.length > 0) {
 			for(let i = 0; i < selectedWorkouts.length; i++) {
-				apiUpdateGoalWorkout(selectedWorkouts[i].goalId, selectedWorkouts[i].workoutId).then((response) => {
+				apiUpdateGoalWorkout(currentGoal.workoutGoals[0].goalId, selectedWorkouts[i]).then((response) => {
 					if(response[0]) {
 						console.error(response[0])
 					} else {
@@ -147,6 +147,7 @@ const GoalDetails = () => {
 					}
 				})
 			}
+			nav("/")
 		}
 	}
 
@@ -160,7 +161,7 @@ const GoalDetails = () => {
 			<form onSubmit={handleSubmit}>
 				<div>
 					<h3>Workouts left to mark as completed:</h3>
-					<Select ref={selection} options={workoutsLeft} isMulti onChange={updateSelection}/>
+					<Select ref={selection} options={workoutsLeft()} isMulti onChange={updateSelection}/>
 				</div>
 				<button type="submit" value="Submit" className="btn btn-primary">
 					Mark as completed

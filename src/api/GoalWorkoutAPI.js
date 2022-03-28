@@ -19,9 +19,8 @@ export async function apiUpdateGoalWorkout(goalId, workoutId) {
 
     try {
         const response = await fetch(`${API_URL}api/GoalWorkout/update`, requestOptions)
-        const data = await response.json()
         
-        return [null, data]
+        return [null, []]
     }
     catch (e){
         return [e.message, []]
