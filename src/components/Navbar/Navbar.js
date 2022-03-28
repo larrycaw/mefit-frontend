@@ -20,7 +20,7 @@ const Navbar = () => {
 	}
 }, [keycloak.idToken]);
 		
-
+// Bootstrap navbar
 	return (
 		<nav className="navbar navbar-expand-md navbar-light bg-light mb-3 navbar-static-top">
 			<AppContainer>
