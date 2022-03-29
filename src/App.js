@@ -79,7 +79,7 @@ function App() {
             }
             />
            <Route
-             path="/contribute/workoutsd"
+             path="/contribute/workouts"
              element={
               <ProtectRoute>
                 <Navbar />
