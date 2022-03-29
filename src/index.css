@@ -2,6 +2,7 @@ body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #F7F7F7
 }
 
 code {
@@ -9,20 +10,37 @@ code {
     monospace;
 }
 
-#goal {
-  display: grid;
-  grid-template-columns: 1fr;
+#navbar {
+  background-color: #F7F7F7;
 }
 
-#goal main {
-  margin-bottom: 1em;
+#goal-dashboard {
+  display: grid;
+  grid-template-columns: 1fr;
+  margin: auto;
+  width: 65%;
+}
+
+#goal-dashboard main {
+  margin-bottom: 2em;
+}
+
+#goal-dashboard main button {
+  margin-bottom: 2em;
+}
+
+#goal-details {
+  margin: auto;
+  width: 60%;
 }
 
 
 @media (min-width:961px)  { 
-  #goal {
+  #goal-dashboard {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    margin: auto;
+    width: 100%;
   }
 }
 

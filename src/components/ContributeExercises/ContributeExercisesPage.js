@@ -8,6 +8,7 @@ const ContributeExercisesPage = () => {
     const [exercises, setExercises] = useState([])
     const [selectedExercise, selectExercise] = useState({})
 
+    // Get all registered exercises
     const getAllExercises = async () => {
         await apiFetchAllExercises()
             .then(response => response[1])
@@ -18,6 +19,7 @@ const ContributeExercisesPage = () => {
         getAllExercises();
     },[])
 
+    // Handle selected exercise to show info
     const onSelect = (e) => {
         let exerciseId = parseInt(e.target.value)
         selectExercise(exercises.find((e) => e.id === exerciseId))

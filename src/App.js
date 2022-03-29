@@ -3,8 +3,7 @@ import { ReactKeycloakProvider } from "@react-keycloak/web";
 import keycloak from "./Keycloak";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar"
-import Dashboard from "./components/Goals/Dashboard";
-import GoalPage from "./components/Goals/GoalPage";
+import DashboardPage from "./components/Goals/DashboardPage";
 import WorkoutPage from "./components/Workouts/Workoutpage";
 import ExercisePage from "./components/Exercises/Exercisepage"
 import ProtectRoute from "./helpers/ProtectRoute";
@@ -14,8 +13,8 @@ import ProfilePage from "./components/Profile/ProfilePage";
 import 'react-calendar/dist/Calendar.css';
 import ContributorProgramPage from "./components/ContributePrograms/ContributorProgram";
 import ContributeExercisesPage from "./components/ContributeExercises/ContributeExercisesPage";
-import SetGoalPage from "./components/SetGoal/SetGoalPage";
-import GoalDetails from "./components/Goals/GoalDetails";
+import SetGoalPage from "./components/Goals/SetGoalPage";
+import GoalPage from "./components/Goals/GoalPage";
 import ContributorRoute from "./helpers/ContributorRoute";
 
 function App() {
@@ -29,7 +28,7 @@ function App() {
                 element={
                     <ProtectRoute>
                       <Navbar />
-                        <Dashboard />
+                      <DashboardPage />
                     </ProtectRoute>
                 }
             />
@@ -38,19 +37,19 @@ function App() {
                 element={
                     <ProtectRoute>
                       <Navbar />
-                        <GoalPage />
+                      <GoalPage />
                     </ProtectRoute>
                 }
             />
             <Route
-                path="/goal-details"
-                element={
-                    <ProtectRoute>
-                      <Navbar />
-                        <GoalDetails />
-                    </ProtectRoute>
-                }
-            />
+              path="/set-goal"
+              element={
+                <ProtectRoute>
+                  <Navbar />
+                  <SetGoalPage />
+                </ProtectRoute>
+              }
+           />
           <Route
              path="/workouts"
              element={
@@ -79,7 +78,7 @@ function App() {
             }
             />
            <Route
-             path="/workoutcontributor"
+             path="/contribute/workouts"
              element={
               <ProtectRoute>
                 <Navbar />
@@ -99,7 +98,7 @@ function App() {
              }
             />
             <Route
-             path="/programcontributor"
+             path="/contribute/programs"
              element={
               <ProtectRoute>
                 <Navbar />
@@ -117,15 +116,6 @@ function App() {
                <ContributorRoute>
                  <ContributeExercisesPage />
                </ContributorRoute>
-               </ProtectRoute>
-             }
-           />
-           <Route
-             path="/set-goal"
-             element={
-               <ProtectRoute>
-                 <Navbar />
-                 <SetGoalPage />
                </ProtectRoute>
              }
            />

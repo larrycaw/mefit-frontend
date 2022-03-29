@@ -15,13 +15,14 @@ const ContributorProgramPage = () => {
     const [chosenProgram, setChosenProgram] = useState([])
     const [checked, setChecked] = useState([])
 
-
+    // Get all registered workouts
     const getAllWorkouts = async () => {
         await apiFetchAllWorkouts()
             .then(response => response[1])
             .then(data => setWorkouts(data))
     }
 
+    // Get all registered programs
     const getAllPrograms = async () => {
         await apiFetchAllPrograms()
             .then(response => response[1])

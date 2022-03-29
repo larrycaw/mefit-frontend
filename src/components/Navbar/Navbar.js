@@ -13,16 +13,19 @@ const Navbar = () => {
 
 	useEffect(() => {
 	if (!keycloak.authenticated){
+		// Reset state if not logged in. 
+		// This should in theory never happen as login is required to view the components
 		dispatch(profileResetAction());
 	}
 	else {
+		// Update profile in state when logged in
 		dispatch(profileFetchAction(keycloak.idTokenParsed.sub));	
 	}
 }, [keycloak.idToken]);
 		
-
+// Bootstrap navbar
 	return (
-		<nav className="navbar navbar-expand-md navbar-light bg-light mb-3 navbar-static-top">
+		<nav id="navbar" className="navbar navbar-expand-md navbar-light mb-3 navbar-static-top">
 			<AppContainer>
 				<Link className="navbar-brand" to="#">MeFit</Link>
 				<button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar">
@@ -45,17 +48,14 @@ const Navbar = () => {
 						<li className="nav-item">
 							<NavLink className="nav-link" to="/programs">Programs</NavLink>
 						</li>
-						<li className="nav-item">
-							<NavLink className="nav-link" to="/set-goal">Set goal</NavLink>
-						</li>
 
 						{keycloak.tokenParsed.user_role.includes("Contributor") ? 
 							<>
 							<li className="nav-item">
-								<NavLink className="nav-link" to="/programcontributor">Add/edit programs</NavLink>
+								<NavLink className="nav-link" to="/contribute/programs">Add/edit programs</NavLink>
 							</li>
 							<li className="nav-item">
-								<NavLink className="nav-link" to="/workoutcontributor">Add/edit workouts</NavLink>
+								<NavLink className="nav-link" to="/contribute/workouts">Add/edit workouts</NavLink>
 							</li>
 							<li className="nav-item">
 								<NavLink className="nav-link" to="/contribute/exercises">Add/edit exercises</NavLink>

@@ -1,7 +1,9 @@
 import AppContainer from "../../helpers/AppContainer";
 
 const SelectedProgram = (props) => {
+  // Shows details for selected program
 
+  // Empty if no program is selected
   if (!props.program.workouts) return <></>;
 
   else {

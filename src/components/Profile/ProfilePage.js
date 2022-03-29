@@ -8,9 +8,14 @@ import {
 import AppContainer from "../../helpers/AppContainer";
 
 const ProfilePage = () => {
+  // URL to manage account in Keycloak
   let accountURL = keycloak.createAccountUrl();
+
+  // Redux state
   const user = useSelector((state) => state.profile);
   const dispatch = useDispatch();
+
+  // Form variables
   const [formWeight, setFormWeight] = useState(0);
   const [formHeight, setFormHeight] = useState(0);
   const [formMedicalConditions, setFromMedicalConditions] = useState("");
@@ -21,6 +26,8 @@ const ProfilePage = () => {
   }, []);
 
   useEffect(() => {
+    // Update form default values with user details
+
     if (user.weight !== undefined) {
       setFormWeight(user.weight);
     }
@@ -36,12 +43,13 @@ const ProfilePage = () => {
   }, [user]);
 
   const bmi = (height, weight) => {
-    // returns calculated BMI along with BMI category
+    // Returns calculated BMI along with BMI category
     let bmi = weight / ((height * height) / 10000);
     return { bmi: bmi.toFixed(1), cat: bmiCategory(bmi) };
   };
 
   const bmiCategory = (bmi) => {
+    // determines bmi category based on bmi
     if (bmi < 18.5) return "underweight";
     else if (bmi < 24.9) return "normal weight";
     else if (bmi < 29.9) return "overweight";
@@ -51,6 +59,7 @@ const ProfilePage = () => {
   const handleSubmit = (event) => {
     // updates new profile details in database
     event.preventDefault();
+
     let newProfile = {
       id: keycloak.idTokenParsed.sub,
       addressId: user.addressId,
@@ -62,6 +71,8 @@ const ProfilePage = () => {
       medicalConditions: formMedicalConditions,
       disabilities: formDisabilities,
     };
+
+    // Make request to backend and update redux state with result
     dispatch(profileUpdateAction(newProfile));
   };
 

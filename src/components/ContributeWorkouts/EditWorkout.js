@@ -12,13 +12,14 @@ const EditWorkout = (props) => {
     const [exercises, setExercises] = useState([])
 
     
-    
+    // Get all registered workouts
     const getAllWorkouts = async () => {
         await apiFetchAllWorkouts()
             .then(response => response[1])
             .then(data => setWorkouts(data))
     }
 
+    // Get all registered exercises
     const getAllExercises = async () => {
         await apiFetchAllExercises()
             .then(response => response[1])
@@ -30,9 +31,12 @@ const EditWorkout = (props) => {
         getAllExercises()
     },[])
     
+    // Handle change of name
     const handleChangeNameEdit = (event) => {
         setChosenWorkoutName(event.target.value)
     }
+
+    // Handle change of type
     const handleChangeTypeEdit = (event) => {
         setChosenWorkoutType(event.target.value)
     }
