@@ -52,10 +52,10 @@ const Navbar = () => {
 						{keycloak.tokenParsed.user_role.includes("Contributor") ? 
 							<>
 							<li className="nav-item">
-								<NavLink className="nav-link" to="/programcontributor">Add/edit programs</NavLink>
+								<NavLink className="nav-link" to="/contribute/programs">Add/edit programs</NavLink>
 							</li>
 							<li className="nav-item">
-								<NavLink className="nav-link" to="/workoutcontributor">Add/edit workouts</NavLink>
+								<NavLink className="nav-link" to="/contribute/workouts">Add/edit workouts</NavLink>
 							</li>
 							<li className="nav-item">
 								<NavLink className="nav-link" to="/contribute/exercises">Add/edit exercises</NavLink>
