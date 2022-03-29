@@ -2,51 +2,49 @@ import React, { useEffect, useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AppContainer } from '../../helpers/AppContainer'
 import keycloak from "../../Keycloak"
-import { apiGetCurrentGoal, apiGetUserGoals } from '../../api/GoalsAPI.js'
+import { apiGetCurrentGoal } from '../../api/GoalsAPI.js'
 import { apiFetchAllWorkouts } from '../../api/WorkoutAPI'
 import { apiFetchProgram } from "../../api/ProgramAPI"
 import { apiUpdateGoalWorkout } from '../../api/GoalWorkoutAPI'
 import Select from "react-select"
 
 const GoalDetails = () => {
+	// States for current goal, program, workouts and selected workouts
 	const [currentGoal, setCurrentGoal] = useState({})
 	const [program, setProgram] = useState({})
-	const [goals, setGoals] = useState([])
 	const [workouts, setWorkouts] = useState([])
-
-	const selection = useRef(null)
-
 	const [selectedWorkouts, setSelectedWorkouts] = useState([])
 
+	// ref object to reset workout selection on submit
+	const selection = useRef(null)
+
+	// declaring useNavigate()-const
 	const nav = useNavigate()
 
+	// arrow function expression to make an api-call that returns current goal and sets it to state
 	const getCurrentGoal = async (id) => {
 		await apiGetCurrentGoal(id)
 			.then(response => response[1])
 			.then(data => setCurrentGoal(data))
 	}
 
-	const getUserGoals = async (id) => {
-		await apiGetUserGoals(id)
-			.then(response => response[1])
-			.then(data => setGoals(data))
-	}
-
+	// arrow function expression to make an api-call that returns all workouts and sets it to state
 	const getAllWorkouts = async () => {
 		await apiFetchAllWorkouts()
 			.then(response => response[1])
 			.then(data => setWorkouts(data))
 	}
 
+	// arrow function expression to make an api-call that returns a program and sets it to state
 	const getProgram = async (id) => {
 		await apiFetchProgram(id)
 			.then(response => response[1])
 			.then(data => setProgram(data))
 	}
 
+	// arrow function expression to make an api-call that checks if user has a current goal which is not achieved  
 	const checkIfUserHasGoal = async () => {
 		await apiGetCurrentGoal(keycloak.idTokenParsed.sub).then((response) => {
-			console.log(response)
 			if (response[1].status && (response[1].status === 404)) {
 				// User has current goal, redirect to dashboard
 				alert("You need to register a new goal!.");
@@ -55,33 +53,37 @@ const GoalDetails = () => {
 		});
 	};
 
+	// check if user has a goal & set current goal, all workouts, selected workouts to state on load
 	useEffect(() => {
 		getCurrentGoal(keycloak.idTokenParsed.sub)
-		getUserGoals(keycloak.idTokenParsed.sub)
 		getAllWorkouts()
 		setSelectedWorkouts([])
 		checkIfUserHasGoal()
 	}, [])
 
+	// set current goal's program to state on load
 	useEffect(() => {
 		if(currentGoal.programId !== undefined) {
 			getProgram(currentGoal.programId)
 		}	
 	}, [currentGoal])
 	
+	// arrow function expression that returns current goal's end date formatted
 	const date = () => {
 		if(currentGoal.programEndDate !== undefined) {
 			let endDate = new Date(currentGoal.programEndDate)
 			return endDate.toLocaleDateString("no-NO")
-		} else return undefined
+		}
 	}
 	
+	// arrow function expression that returns current goal's program name if not undefined
 	const programName = () => {
 		if(program.name !== undefined) {
 			return program.name
 		}
 	}
 
+	// arrow function expression that returns workouts left to populate Select-element
 	const workoutsLeft = () => {
 		let incompletedWorkoutGoals = []
 		let workoutsLeft = []
@@ -110,7 +112,7 @@ const GoalDetails = () => {
 		return workoutOptions
 	}
 	
-	
+	// arrow function expression that updates selection when user clicks on a workout
 	let updateSelection = (workouts) => {
 	
 		let completedWorkouts = []
@@ -126,9 +128,9 @@ const GoalDetails = () => {
 		setSelectedWorkouts(completedWorkouts.map((w) => w.workoutId))
 	}
 
+	// arrow function expression that handles the form-submission's
 	const handleSubmit = (event) => {
 		event.preventDefault()
-		console.log(selectedWorkouts)
 
 		if(selectedWorkouts.length > 0) {
 			for(let i = 0; i < selectedWorkouts.length; i++) {

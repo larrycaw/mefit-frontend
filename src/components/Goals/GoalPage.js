@@ -8,42 +8,44 @@ import { apiFetchAllPrograms } from '../../api/ProgramAPI'
 
 const GoalPage = () => {
 
-	/* 
-		TODO: Try catch on getCurrentGoal to avoid 404 error in console on no goal set?
-	*/
+	// States for goals, current goal, workouts and programs
 	const [goals, setGoals] = useState([])
 	const [currentGoal, setCurrentGoal] = useState({})
 	const [workouts, setWorkouts] = useState([])
-	let [programs, setPrograms] = useState([])
+	const [programs, setPrograms] = useState([])
 
+	// declaring useNavigate()-const
 	const nav = useNavigate()
 	
+	// arrow function expression to make an api-call that returns current goal and sets it to state
 	const getCurrentGoal = async (id) => {
 		await apiGetCurrentGoal(id)
 			.then(response => response[1])
 			.then(data => setCurrentGoal(data))
 	}
 	
+	// arrow function expression to make an api-call that returns all user goals and sets it to state
 	const getUserGoals = async (id) => {
 		await apiGetUserGoals(id)
 		.then(response => response[1])
 		.then(data => setGoals(data))
 	}
-	
+
+	// arrow function expression to make an api-call that returns all workouts and sets it to state
 	const getAllWorkouts = async () => {
 		await apiFetchAllWorkouts()
 			.then(response => response[1])
 			.then(data => setWorkouts(data))
 	}
 
+	// arrow function expression to make an api-call that returns all programs and sets it to state
 	const getPrograms = async () => {
 		await apiFetchAllPrograms()
-		.then (result => result[1])
-		.then((data) => {
-		  setPrograms(data);
-		})
-	  }
-	
+			.then (result => result[1])
+			.then((data) => setPrograms(data))
+	}
+
+	// set current goal, all workouts, selected workouts to state on load
 	useEffect(() => {
 		getCurrentGoal(keycloak.idTokenParsed.sub)
 		getUserGoals(keycloak.idTokenParsed.sub)
@@ -51,6 +53,8 @@ const GoalPage = () => {
 		getPrograms()
 	}, [])
 	
+	// arrow function expression that returns previously achieved goals
+	// or a string saying user has no previously achieved goals
 	const achievedGoals = () => {
 		let programIdsAndDates = []
 
@@ -69,20 +73,21 @@ const GoalPage = () => {
 		} else return "You have no previous goals :("
 	}
 
+	// arrow function expression that returns current goal's date in norwegian format
 	const date = () => {
 		if(currentGoal.programEndDate !== undefined) {
-			let endDate = new Date(currentGoal.programEndDate)
-			return endDate.toLocaleDateString("no-NO")
-		} else return undefined
+			return new Date(currentGoal.programEndDate).toLocaleDateString("no-NO")
+		}
 	}
 
+	// arrow function expression to get length of total workouts (completed = true/false)
 	const totalWorkouts = () => {
 		if(currentGoal.workoutGoals !== undefined)
 			return currentGoal.workoutGoals.length
-		else return undefined
 	}
 
-	const workoutsCompleted = () => {
+	// arrow function expression to get length of workouts left
+	const workoutsLeft = () => {
 		if(currentGoal.workoutGoals !== undefined) {
 			let workoutsTmp = []
 			for(let i = 0; i < currentGoal.workoutGoals.length; i++) {
@@ -94,6 +99,7 @@ const GoalPage = () => {
 		}
 	}
 
+	// arrow function expression to set goal to achieved if all workouts are completed
 	const setAchievedIfWorkoutsComplete = () => {
 		let incompletedWorkoutGoals = []
 		let workoutsLeft = []
@@ -128,13 +134,10 @@ const GoalPage = () => {
 		}
 	}
 	
+	// set goal to achieved (if conditions are met) on page load
 	useEffect(() => {
 		setAchievedIfWorkoutsComplete();
 	}, [workouts])
-
-	if(currentGoal.programId !== undefined && goals.length > 0 && workouts.length > 0) {
-		console.log(currentGoal)
-	}
 
 	if(currentGoal.status && currentGoal.status !== 404)
 		return (
@@ -157,14 +160,14 @@ const GoalPage = () => {
 					<h1>Goal dashboard</h1>
 					<h4>Program progress</h4>
 					<p>Total workouts in program: { totalWorkouts() }</p>
-					<p>Workouts left: { workoutsCompleted() }</p>
+					<p>Workouts left: { workoutsLeft() }</p>
 					<p>Program end date: { date() }</p>
 					<button onClick={ () => 
 						nav('/goal-details', {replace: true}) } 
 						type="button" className="btn btn-primary">
 						My goal
 					</button>
-					<h2>Previously achieved goals with dates</h2>
+					<h2>Previously achieved goals</h2>
 					<p>{ achievedGoals() }</p>
 				</main>
 			</AppContainer>
@@ -180,7 +183,7 @@ const GoalPage = () => {
 						type="button" className="btn btn-primary">
 						New goal
 					</button>
-					<h2>Previously achieved goals with dates</h2>
+					<h2>Previously achieved goals</h2>
 					<p>{ achievedGoals() }</p>
 				</main>
 			</AppContainer>
