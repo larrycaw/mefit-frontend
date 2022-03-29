@@ -2,7 +2,7 @@ import { API_URL } from "../API"
 import keycloak from "../Keycloak"
 
 export async function apiFetchAllExercises() {
-
+  // Fetches all exercises from DB
     const requestOptions = {
       headers: {
           'Content-Type': 'application/json',
@@ -22,6 +22,7 @@ export async function apiFetchAllExercises() {
 }
 
 export async function apiUpdateExercise(exercise) {
+  // Updates exercise in DB
     const requestOptions = {
         method: "PUT",
         headers: {
@@ -49,6 +50,7 @@ export async function apiUpdateExercise(exercise) {
 }
 
 export async function apiCreateExercise(exercise) {
+  // Creates a new exercise in DB
     const requestOptions = {
         method: "POST",
         headers: {

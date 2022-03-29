@@ -7,6 +7,7 @@ import keycloak from "../../Keycloak";
 import Select from "react-select";
 import { useNavigate } from "react-router-dom";
 import AppContainer from "../../helpers/AppContainer";
+
 const SetGoalPage = () => {
   const nav = useNavigate();
 
@@ -48,6 +49,7 @@ const SetGoalPage = () => {
       });
   };
 
+  // Checks if user has a current goal, and if they do redirect to goal detail page instead
   const checkIfUserHasGoal = async () => {
     await apiGetCurrentGoal(keycloak.idTokenParsed.sub).then((response) => {
       if (!response[1].status && !(response[1].status === 404)) {
@@ -88,6 +90,7 @@ const SetGoalPage = () => {
   };
 
   const handleSubmit = (event) => {
+    // Updates goal in database on submit
     event.preventDefault();
 
     if (Object.keys(formProgram).length === 0) {
@@ -95,6 +98,7 @@ const SetGoalPage = () => {
       return;
     }
 
+    // workouts in new goal is a combination of workouts from base program, and additional selected workouts
     let newGoal = {
       workouts: [...formProgram.workouts, ...selectedWorkouts],
       program: formProgram.id,

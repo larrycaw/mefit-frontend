@@ -2,7 +2,7 @@ import { API_URL } from "../API"
 import keycloak from "../Keycloak";
 
 export async function apiFetchAllPrograms() {
-
+    // Fetches all programs from DB
     try {
         const response = await fetch(`${API_URL}api/MFProgram/all`, {
             headers: { 
@@ -20,7 +20,7 @@ export async function apiFetchAllPrograms() {
 }
 
 export async function apiFetchProgram(id) {
-
+    /// Fetches a program by program ID
     try {
         const response = await fetch(`${API_URL}api/MFProgram`, {
             headers: { 
@@ -38,6 +38,7 @@ export async function apiFetchProgram(id) {
 }
 
 export async function apiCreateProgram(programName, programCategory) {
+    // Creates a new program
     const requestOptions = {
         method: 'POST',
         headers: {
@@ -62,6 +63,7 @@ export async function apiCreateProgram(programName, programCategory) {
 }
 
 export async function apiUpdateProgram(id, programName, programCategory) {
+    // Updates an existing program
     const requestOptions = {
         method: 'PUT',
         headers: {
@@ -88,6 +90,8 @@ export async function apiUpdateProgram(id, programName, programCategory) {
 }
 
 export async function apiAssignWorkout(id, workoutIDs) {
+    // Assigns workouts to a program
+    
     const requestOptions = {
         method: 'POST',
         headers: {
