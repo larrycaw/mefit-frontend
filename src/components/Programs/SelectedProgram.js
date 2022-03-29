@@ -18,9 +18,9 @@ const SelectedProgram = (props) => {
 
     return (
       <AppContainer>
-        <div class="row">
-          <div class="col-8">
-            <div class="tab-content" id="nav-tabContent">
+        <div className="row">
+          <div className="col-8">
+            <div className="tab-content" id="nav-tabContent">
               {props.program.workoutNames ? (workoutList) : (<i>No workouts in program</i>)}
             </div>
 

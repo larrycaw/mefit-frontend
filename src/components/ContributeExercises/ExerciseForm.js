@@ -51,7 +51,7 @@ const ExerciseForm = (props) => {
     }
 
     return (
-        <div className="form-group col-md-5">
+        <div className="form-group col-md-5 mb-5">
             <form onSubmit={handleSubmit}>
                 <label>
                     Name:

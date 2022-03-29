@@ -66,8 +66,8 @@ const GoalPage = () => {
 					let date = new Date(goals[i].programEndDate)
 					programIdsAndDates.push(
 						<li style={{listStyle: "none"}}>
-							Program name: <b><i>{programName}</i></b>
-							 - End date: <b>({date.toLocaleDateString("no-NO")})</b>
+							Program name: <b><i>{programName} </i></b>
+							- End date: <b>({date.toLocaleDateString("no-NO")})</b>
 						</li>)
 				}
 			}

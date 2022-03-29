@@ -17,7 +17,7 @@ const ProgramList = (props) => {
   return (
         <AppContainer>
             <h2>All registered program:</h2>
-                <div class="col-4">
+                <div className="col-4">
                     <div className="list-group" id="list-tab" role="tablist" >
                         {props.programs.length > 0 ? programList : <span>No programs</span>}   
                     </div>
