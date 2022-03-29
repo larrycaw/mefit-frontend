@@ -9,6 +9,7 @@ const EditProgram = (props) => {
     const [chosenProgram, setChosenProgram] = useState([])
     const [programs, setPrograms] = useState([])
 
+    // Get all registered programs
     const getAllPrograms = async () => {
         await apiFetchAllPrograms()
             .then(response => response[1])
@@ -20,7 +21,7 @@ const EditProgram = (props) => {
     },[])
 
 
-    
+    // Handle submit, will only change the inserted variable, else use already existing name and category
     const handleEdit = (event) => {
         if(chosenProgramName == "" && chosenProgramCategory) {
             alert("Insert edits")
@@ -40,14 +41,17 @@ const EditProgram = (props) => {
         event.preventDefault()
     }
 
+    // Set a chosen program as it current program to edit on
     const listInfo = (program) => {
         setChosenProgram(program)
     }
 
+    // Handle change of name
     const handleChangeNameEdit = (event) => {
         setChosenProgramName(event.target.value)
     }
     
+    // handle change of category 
     const handleChangeCategoryEdit = (event) => {
         setChosenProgramCategory(event.target.value)
     }

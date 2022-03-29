@@ -127,7 +127,6 @@ export async function apiAssignSetToWorkout(id, setIds) {
         },
         body: JSON.stringify(setIds)
     }
-    console.log(requestOptions.body)
 
     try {
         const response = await fetch(`${API_URL}api/Workouts/assignSets`, requestOptions)

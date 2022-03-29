@@ -110,7 +110,6 @@ const SetGoalPage = () => {
         console.error(response[0]);
         alert(`Something went wrong: ${response[0]}`);
       } else {
-        console.log(response[1]);
         nav("/");
       }
     });

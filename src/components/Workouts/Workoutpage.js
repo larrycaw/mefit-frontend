@@ -9,24 +9,25 @@ const Workout = () => {
     const [exercises, setExercises] = useState([])
     const [workoutId, setWorkoutId] = useState([])
 
-    let wokroutIds = []
+    let workoutIds = []
     let ex = []
 
-
+    // Get all registered workouts
     const getAllWorkouts = async () => {
         await apiFetchAllWorkouts()
             .then(response => response[1])
             .then(data =>{
                 setWorkouts(data)
                 data.forEach(element => {
-                    wokroutIds.push(element.id)
+                    workoutIds.push(element.id)
                 });
-                wokroutIds.forEach(element => {
+                workoutIds.forEach(element => {
                     getExerciseInWorkout(element)
                 });
             })
     }
 
+    // Get all exercises registered to current workout
     const getExerciseInWorkout = async (id) => {
         
         await apiGetExercisesByWorkoutId(id)
@@ -41,7 +42,7 @@ const Workout = () => {
         getAllWorkouts()
     },[])
 
-
+    // Handle info about the workout and ita exercises
     const listInfo = async (event, workout) => {
         let workoutInfo = []
         workoutInfo.push(`Name: ${workout.name}`)

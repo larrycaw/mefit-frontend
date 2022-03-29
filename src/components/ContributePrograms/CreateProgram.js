@@ -6,13 +6,17 @@ const CreateNewProgram = (props) => {
     const [category, setCategory] = useState("")
     const [programName, setName] = useState("")
 
+    // Handle change of name
     const handleChangeName = (event) => {
         setName(event.target.value)
     }
+
+    // Handle change of category
     const handleChangeCategory = (event) => {
         setCategory(event.target.value)
     }
 
+    // Handle submit from form, creates a new program
     const handleSubmit = (event) => {
         apiCreateProgram(programName, category)
         alert("A new program is created")
