@@ -184,7 +184,7 @@ const ProfilePage = () => {
       </form>
 
       <h1 className="display-4 mt-5">Update account details:</h1>
-      <button className="btn btn-secondary mt-3" onClick={(e) => window.location.href = accountURL}>
+      <button className="btn btn-secondary mt-3 mb-5" onClick={(e) => window.location.href = accountURL}>
         Manage account
       </button>
     </AppContainer>

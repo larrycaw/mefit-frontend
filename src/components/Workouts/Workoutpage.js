@@ -69,17 +69,17 @@ const Workout = () => {
             <h1 className="text-black text-4xl">Welcome to the Workout Page.</h1>
             <AppContainer>
                 <h2>All registered workouts:</h2>
-                <div class="row">
-                    <div class="col-4">
-                        <div class="list-group" id="list-tab" role="tablist" >
+                <div className="row">
+                    <div className="col-4">
+                        <div className="list-group" id="list-tab" role="tablist" >
                             {workouts.map((workout, i) => 
-                                <a class="list-group-item list-group-item-action" style={{background: '#7D9FE2'}} data-toggle="list" role="tab" onClick={(event) => listInfo(event, workout)}>{workout.name}</a>
+                                <a className="list-group-item list-group-item-action" style={{background: '#7D9FE2'}} data-toggle="list" role="tab" onClick={(event) => listInfo(event, workout)}>{workout.name}</a>
                             )}
 
                         </div>
                     </div>
-                    <div class="col-8">
-                        <div class="tab-content" id='nav-tabContent'>
+                    <div className="col-8">
+                        <div className="tab-content" id='nav-tabContent'>
                             {info.map((inf, i) => 
                                 <div className='tab-pane fade show active'>
                                     {inf}
