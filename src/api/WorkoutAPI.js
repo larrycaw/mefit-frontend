@@ -2,6 +2,7 @@ import { API_URL } from "../API"
 import keycloak from "../Keycloak";
 
 export async function apiFetchAllWorkouts() {
+    // Fetches all workouts
     const requestOptions = {
         headers: {
             'Content-Type': 'application/json',
@@ -20,6 +21,7 @@ export async function apiFetchAllWorkouts() {
 }
 
 export async function apiGetExercisesByWorkoutId(id) {
+    // Fetches workout by workout ID
     const requestOptions = {
         headers: {
             'id': id,
@@ -39,6 +41,7 @@ export async function apiGetExercisesByWorkoutId(id) {
 }
 
 export async function apiCreateWorkout(workoutName, workoutType) {
+    // Creates a new workout
     const requestOptions = {
         method: 'POST',
         headers: {
@@ -63,6 +66,7 @@ export async function apiCreateWorkout(workoutName, workoutType) {
 }
 
 export async function apiUpdateWorkout(id, workoutName, workoutType) {
+    // Updates an existing workout
     const requestOptions = {
         method: 'PUT',
         headers: {
@@ -89,7 +93,7 @@ export async function apiUpdateWorkout(id, workoutName, workoutType) {
 }
 
 export async function apiAssignSetByExercise(id, exerciseIDs) {
-
+    // Assigns sets to a workout by exercise IDs
     const requestOptions = {
         method: 'PUT',
         headers: {
@@ -113,7 +117,7 @@ export async function apiAssignSetByExercise(id, exerciseIDs) {
 }
 
 export async function apiAssignSetToWorkout(id, setIds) {
-
+    // Assigns sets to a workout
     const requestOptions = {
         method: 'PUT',
         headers: {
@@ -123,7 +127,6 @@ export async function apiAssignSetToWorkout(id, setIds) {
         },
         body: JSON.stringify(setIds)
     }
-    console.log(requestOptions.body)
 
     try {
         const response = await fetch(`${API_URL}api/Workouts/assignSets`, requestOptions)

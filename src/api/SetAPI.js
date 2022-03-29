@@ -2,7 +2,7 @@ import { API_URL } from "../API"
 import keycloak from "../Keycloak";
 
 export async function apiFetchAllSets() {
-
+    // Fetches all sets
     const requestOptions = {
         headers: {
             'Content-Type': 'application/json',
@@ -22,6 +22,7 @@ export async function apiFetchAllSets() {
 }
 
 export async function apiGetSetById(id) {
+    // Fetches set by set ID
     const requestOptions = {
         headers: {
             'id': id,
@@ -41,6 +42,7 @@ export async function apiGetSetById(id) {
 }
 
 export async function apiCreateSet(exerciseID, repetitions) {
+    // Creates a new set
     const requestOptions = {
         method: 'POST',
         headers: {

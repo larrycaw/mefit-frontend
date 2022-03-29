@@ -2,7 +2,7 @@ import { API_URL } from "../API"
 import keycloak from "../Keycloak"
 
 export async function apiGetCurrentGoal(id) {
-    
+    // Gets the current (not achieved) goal of a user
     try {
         const response = await fetch(`${API_URL}api/Goals/currentGoal`, {
             headers: { 
@@ -20,29 +20,8 @@ export async function apiGetCurrentGoal(id) {
     }
 }
 
-
-export async function apiGetGoalById(id) {
-    
-    try {
-
-        const response = await fetch(`${API_URL}api/Goals/user`, {
-            headers: { 
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${keycloak.token}`,
-                'id': id
-            },
-          })
-        const data = await response.json()
-
-        return [null, data]
-    }
-    catch(e){
-        return [e.message, []]
-    }
-}
-
 export async function apiGetUserGoals(id) {
-
+    // Gets all goals of a user
     try {
         const response = await fetch(`${API_URL}api/Goals/user`, {
             headers: { 
@@ -96,6 +75,7 @@ export async function apiCreateUserGoal(newGoal, userId){
 }
 
 export async function apiSetGoalAchieved (currentGoal) {
+    // Updates a goal to be "achieved"
     const requestOptions = {
         method: "PUT",
         headers: {

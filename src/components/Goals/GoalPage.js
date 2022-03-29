@@ -72,8 +72,7 @@ const GoalDetails = () => {
 	// arrow function expression that returns current goal's end date formatted
 	const date = () => {
 		if(currentGoal.programEndDate !== undefined) {
-			let endDate = new Date(currentGoal.programEndDate)
-			return endDate.toLocaleDateString("no-NO")
+			return new Date(currentGoal.programEndDate).toLocaleDateString("no-NO")
 		}
 	}
 	

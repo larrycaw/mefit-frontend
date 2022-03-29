@@ -7,8 +7,7 @@ const ExercisePage = () => {
     const [info, setInfo] = useState([""])
     const [exercises, setExercises] = useState([])
 
-
-
+    // Get all exercise
     const getAllExercises = async () => {
         await apiFetchAllExercises()
             .then(response => response[1])
@@ -19,7 +18,7 @@ const ExercisePage = () => {
         getAllExercises()
     },[])
 
-
+    // List of info for selected exercises
     const listInfo = (exercise) => {
         let exerciseInfo = []
         exerciseInfo.push(`Name: ${exercise.name}`)

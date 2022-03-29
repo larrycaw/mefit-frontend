@@ -13,9 +13,12 @@ const Navbar = () => {
 
 	useEffect(() => {
 	if (!keycloak.authenticated){
+		// Reset state if not logged in. 
+		// This should in theory never happen as login is required to view the components
 		dispatch(profileResetAction());
 	}
 	else {
+		// Update profile in state when logged in
 		dispatch(profileFetchAction(keycloak.idTokenParsed.sub));	
 	}
 }, [keycloak.idToken]);
@@ -49,10 +52,10 @@ const Navbar = () => {
 						{keycloak.tokenParsed.user_role.includes("Contributor") ? 
 							<>
 							<li className="nav-item">
-								<NavLink className="nav-link" to="/programcontributor">Add/edit programs</NavLink>
+								<NavLink className="nav-link" to="/contribute/programs">Add/edit programs</NavLink>
 							</li>
 							<li className="nav-item">
-								<NavLink className="nav-link" to="/workoutcontributor">Add/edit workouts</NavLink>
+								<NavLink className="nav-link" to="/contribute/workouts">Add/edit workouts</NavLink>
 							</li>
 							<li className="nav-item">
 								<NavLink className="nav-link" to="/contribute/exercises">Add/edit exercises</NavLink>

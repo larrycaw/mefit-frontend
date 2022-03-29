@@ -14,12 +14,14 @@ const AddSetWorkout = (props) => {
 
     let newSetList = []
 
+    // Get all registered workouts
     const getAllWorkouts = async () => {
         await apiFetchAllWorkouts()
             .then(response => response[1])
             .then(data => setWorkouts(data))
     }
 
+    // Get all registered exercises
     const getAllExercises = async () => {
         await apiFetchAllExercises()
             .then(response => response[1])
@@ -40,10 +42,12 @@ const AddSetWorkout = (props) => {
         
     }, [createdSets])
     
+    // Set current workout
     const listInfo = (workout) => {
         setChosenWorkout(workout)
     }
 
+    // Handle set repetitions of new created set
     const handleRepetitions = (event, exercise) => {
         var updateNewSets = [...newSets]
         const exists = updateNewSets.some(v => (v.key == exercise.id))
@@ -63,6 +67,7 @@ const AddSetWorkout = (props) => {
         event.preventDefault()
     }
 
+    // Handle selected values from checkboxes and add to list to be assign
     const handleChecked = (event) => {
 
         var updateList = [...checked]
@@ -76,20 +81,22 @@ const AddSetWorkout = (props) => {
         }
     }
 
+    // Handle create a new set, depending on selected exercises
     const handleCreateSet = async (key, value) => {
         await apiCreateSet(key, value)
             .then(response => response[1])
             .then(data => {
                 newSetList.push(data.id)
-                console.log("in handle create set ", newSetList)
                 setCreatedSets(newSetList)
             })
     }
+
+    // Assign exercises to current workout
     const handleAssign = async (set) => {
-        console.log("in  handle assign")
         apiAssignSetToWorkout(chosenWorkout.id, set)
     }
 
+    // Handle checkbox for selected exercise to be added to workout
     const handleCheck = (event) => {
         if(chosenWorkout.id == null) {
             alert("Select a workout")

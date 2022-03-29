@@ -9,13 +9,14 @@ const AddWorkoutToProgram = () => {
     const [programs, setPrograms] = useState([])
     const [workouts, setWorkouts] = useState([])
 
-
+    // Get all registered workouts
     const getAllWorkouts = async () => {
         await apiFetchAllWorkouts()
             .then(response => response[1])
             .then(data => setWorkouts(data))
     }
 
+    // Get all registered programs
     const getAllPrograms = async () => {
         await apiFetchAllPrograms()
             .then(response => response[1])
@@ -27,7 +28,7 @@ const AddWorkoutToProgram = () => {
         getAllWorkouts()
     },[])
 
-
+    // Handle checkboxes, if value is true add value of checked box to list
     const handleChecked = (event) => {
 
         var updateList = [...checked]
@@ -40,6 +41,8 @@ const AddWorkoutToProgram = () => {
             setChecked(v => v.filter((item) => item != event.target.value))
         }
     }
+
+    // Handle submit of checkbox-form, assigns all checked workouts to current program
     const handleCheck = (event) => {
         if(chosenProgram.id == null) {
             alert("Select a program")
@@ -50,6 +53,7 @@ const AddWorkoutToProgram = () => {
         event.preventDefault()
     };
 
+    // Set a program to current program
     const listInfo = (program) => {
         setChosenProgram(program)
     }

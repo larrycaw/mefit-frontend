@@ -6,6 +6,7 @@ import AppContainer from "../../helpers/AppContainer";
 import 'bootstrap/dist/css/bootstrap.css';
 
 const ProgramPage = () => {
+  // Base component for programs page
 
   let [programs, setPrograms] = useState([]);
   let [selectedProgram, setSelectedProgram] = useState({});
@@ -23,6 +24,7 @@ const ProgramPage = () => {
   }, []);
 
   const handleProgramSelect = (programId) => {
+    // Update state which in turn updates SelectedProgram component
     setSelectedProgram(programs.find(p => p.id === programId))
   }
 
