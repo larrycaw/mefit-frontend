@@ -25,7 +25,7 @@ const Navbar = () => {
 		
 // Bootstrap navbar
 	return (
-		<nav className="navbar navbar-expand-md navbar-light bg-light mb-3 navbar-static-top">
+		<nav id="navbar" className="navbar navbar-expand-md navbar-light mb-3 navbar-static-top">
 			<AppContainer>
 				<Link className="navbar-brand" to="#">MeFit</Link>
 				<button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar">
@@ -47,9 +47,6 @@ const Navbar = () => {
 						</li>
 						<li className="nav-item">
 							<NavLink className="nav-link" to="/programs">Programs</NavLink>
-						</li>
-						<li className="nav-item">
-							<NavLink className="nav-link" to="/set-goal">Set goal</NavLink>
 						</li>
 
 						{keycloak.tokenParsed.user_role.includes("Contributor") ? 
