@@ -3,7 +3,8 @@ import keycloak from "../Keycloak";
 import AppContainer from "./AppContainer";
 
 const ContributorRoute = ({ children }) => {
-const isContributor = keycloak.tokenParsed.user_role.includes("Contributor");
+    // Protects route only for contributors. Only renders children if user is contributor
+ const isContributor = keycloak.tokenParsed.user_role.includes("Contributor");
  
  return isContributor ? children : (
  <AppContainer>

@@ -13,9 +13,12 @@ const Navbar = () => {
 
 	useEffect(() => {
 	if (!keycloak.authenticated){
+		// Reset state if not logged in. 
+		// This should in theory never happen as login is required to view the components
 		dispatch(profileResetAction());
 	}
 	else {
+		// Update profile in state when logged in
 		dispatch(profileFetchAction(keycloak.idTokenParsed.sub));	
 	}
 }, [keycloak.idToken]);

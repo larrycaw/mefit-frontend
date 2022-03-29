@@ -44,6 +44,7 @@ export const profileReducer = (state = { ...initialState }, action) => {
 
     case ACTION_PROFILE_RESET:
       return initialState;
+      
     default:
       return state;
   }
