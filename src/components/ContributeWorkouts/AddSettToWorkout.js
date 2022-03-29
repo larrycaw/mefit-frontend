@@ -87,14 +87,12 @@ const AddSetWorkout = (props) => {
             .then(response => response[1])
             .then(data => {
                 newSetList.push(data.id)
-                console.log("in handle create set ", newSetList)
                 setCreatedSets(newSetList)
             })
     }
 
     // Assign exercises to current workout
     const handleAssign = async (set) => {
-        console.log("in  handle assign")
         apiAssignSetToWorkout(chosenWorkout.id, set)
     }
 

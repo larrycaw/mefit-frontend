@@ -88,7 +88,6 @@ export async function apiUpdateProgram(id, programName, programCategory) {
 }
 
 export async function apiAssignWorkout(id, workoutIDs) {
-    console.log(id, workoutIDs)
     const requestOptions = {
         method: 'POST',
         headers: {
@@ -99,7 +98,6 @@ export async function apiAssignWorkout(id, workoutIDs) {
         body: JSON.stringify(workoutIDs)
      
     }
-    console.log(requestOptions.body)
 
     try {
         const response = await fetch(`${API_URL}api/MFProgram/assignWorkouts`, requestOptions)

@@ -9,7 +9,7 @@ const Workout = () => {
     const [exercises, setExercises] = useState([])
     const [workoutId, setWorkoutId] = useState([])
 
-    let wokroutIds = []
+    let workoutIds = []
     let ex = []
 
     // Get all registered workouts
@@ -19,9 +19,9 @@ const Workout = () => {
             .then(data =>{
                 setWorkouts(data)
                 data.forEach(element => {
-                    wokroutIds.push(element.id)
+                    workoutIds.push(element.id)
                 });
-                wokroutIds.forEach(element => {
+                workoutIds.forEach(element => {
                     getExerciseInWorkout(element)
                 });
             })

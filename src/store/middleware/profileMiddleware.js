@@ -46,7 +46,6 @@ export const profileMiddleware =
 
       fetch(`${API_URL}api/Profile`, requestOptions)
         .then((response) => {
-          console.log(response);
           response.json();
         })
         .then((result) =>
