@@ -14,7 +14,7 @@ Deployed to Heroku with continous deployment.
 
 ## Install
 
-**For this project you will also need to install the [backend](https://gitlab.com/g5453/backend) and have a running [Keycloak](https://hub.docker.com/r/jboss/keycloak/) instance running on your computer.**
+**For this project you will also need to install the [backend](https://gitlab.com/g5453/backend) and have a running [Keycloak](https://gitlab.com/g5453/backend/-/blob/main/README.md#keycloak-setup) (see Keycloak setup in Backend README.md) instance running on your computer.**
 
 Then you can install the frontend locally:
 ```bash
