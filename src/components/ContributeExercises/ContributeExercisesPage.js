@@ -19,7 +19,7 @@ const ContributeExercisesPage = () => {
         getAllExercises();
     },[])
 
-    // HAndle selected exercise to show info
+    // Handle selected exercise to show info
     const onSelect = (e) => {
         let exerciseId = parseInt(e.target.value)
         selectExercise(exercises.find((e) => e.id === exerciseId))
