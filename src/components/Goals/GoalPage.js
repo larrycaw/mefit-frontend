@@ -76,9 +76,7 @@ const GoalPage = () => {
 	// arrow function expression that returns current goal's date in norwegian format
 	const date = () => {
 		if(currentGoal.programEndDate !== undefined) {
-			// let endDate = new Date(currentGoal.programEndDate)
 			return new Date(currentGoal.programEndDate).toLocaleDateString("no-NO")
-			// return endDate.toLocaleDateString("no-NO")
 		}
 	}
 
