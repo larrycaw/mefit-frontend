@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AppContainer } from '../../helpers/AppContainer'
 import keycloak from "../../Keycloak"
-import { apiGetCurrentGoal } from '../../api/GoalsAPI.js'
+import { apiGetCurrentGoal, apiSetGoalAchieved } from '../../api/GoalsAPI.js'
 import { apiFetchAllWorkouts } from '../../api/WorkoutAPI'
 import { apiFetchProgram } from "../../api/ProgramAPI"
 import { apiUpdateGoalWorkout } from '../../api/GoalWorkoutAPI'
@@ -131,7 +131,7 @@ const GoalDetails = () => {
 	}
 
 	// arrow function expression that handles the form-submission's
-	const handleSubmit = (event) => {
+	const handleSubmit = async (event) => {
 		event.preventDefault()
 
 		if(selectedWorkouts.length > 0) {
@@ -146,7 +146,14 @@ const GoalDetails = () => {
 					}
 				})
 			}
-			nav("/")
+
+			if (workoutsLeft().length === selectedWorkouts.length){
+				apiSetGoalAchieved(currentGoal)
+				.then (() => nav("/"))
+			}
+			else {
+				nav("/")
+			}
 		}
 	}
 
