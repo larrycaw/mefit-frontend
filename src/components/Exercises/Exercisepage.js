@@ -31,7 +31,7 @@ const ExercisePage = () => {
 
     return (
         <AppContainer>
-            <h1 className="text-black text-4xl">Welcome to the Workout Page.</h1>
+            <h1 className="text-black text-4xl">Welcome to the Exercise Page.</h1>
             <AppContainer>
                 <h2>All registered exercises:</h2>
                 <div className="row">
